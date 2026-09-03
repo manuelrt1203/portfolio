@@ -4,15 +4,18 @@ import {
   Code2, MessageSquare, Users, Brain, Zap, PenLine, Wrench,
 } from "lucide-react";
 
-const techSkills = [
-  { name: "React / Next.js", level: 82 },
-  { name: "TypeScript / JavaScript", level: 80 },
-  { name: "Python", level: 75 },
-  { name: "Réseaux (VLAN, routage, DNS/DHCP)", level: 78 },
-  { name: "PHP / MySQL", level: 65 },
-  { name: "Supabase / PostgreSQL", level: 70 },
-  { name: "Linux / administration serveur", level: 68 },
-  { name: "Git / GitHub", level: 72 },
+const LEVELS = ["Notions", "Bases solides", "Opérationnel", "Confirmé"] as const;
+type Level = (typeof LEVELS)[number];
+
+const techSkills: { name: string; level: Level }[] = [
+  { name: "React / Next.js", level: "Confirmé" },
+  { name: "TypeScript / JavaScript", level: "Confirmé" },
+  { name: "Python", level: "Opérationnel" },
+  { name: "Réseaux (VLAN, routage, DNS/DHCP)", level: "Opérationnel" },
+  { name: "PHP / MySQL", level: "Bases solides" },
+  { name: "Supabase / PostgreSQL", level: "Opérationnel" },
+  { name: "Linux / administration serveur", level: "Bases solides" },
+  { name: "Git / GitHub", level: "Opérationnel" },
 ];
 
 const softSkills = [
@@ -31,40 +34,39 @@ const tools = [
 ];
 
 function SkillBar({ name, level, visible }: {
-  name: string; level: number; visible: boolean;
+  name: string; level: Level; visible: boolean;
 }) {
+  const tier = LEVELS.indexOf(level) + 1;
   return (
-    <div style={{ marginBottom: 20 }}>
+    <div style={{ marginBottom: 18 }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           marginBottom: 8,
           alignItems: "center",
+          gap: 12,
+          flexWrap: "wrap",
         }}
       >
         <span style={{ fontWeight: 600, fontSize: "0.9rem" }}>{name}</span>
-        <span className="mono" style={{ color: "var(--primary)", fontWeight: 600, fontSize: "0.82rem" }}>
-          {level}%
+        <span className="mono" style={{ color: "var(--muted)", fontWeight: 500, fontSize: "0.78rem" }}>
+          {level}
         </span>
       </div>
-      <div
-        style={{
-          height: 6,
-          background: "var(--card-border)",
-          borderRadius: 2,
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: visible ? `${level}%` : "0%",
-            background: "var(--primary)",
-            borderRadius: 2,
-            transition: "width 1s ease",
-          }}
-        />
+      <div style={{ display: "flex", gap: 4 }}>
+        {LEVELS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              height: 5,
+              flex: 1,
+              borderRadius: 1,
+              background: visible && i < tier ? "var(--primary)" : "var(--card-border)",
+              transition: `background 0.4s ease ${i * 0.08}s`,
+            }}
+          />
+        ))}
       </div>
     </div>
   );

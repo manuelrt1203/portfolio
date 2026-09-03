@@ -72,12 +72,13 @@ export default function Footer() {
               >
                 Navigation
               </p>
-              {["#about", "#skills", "#projects", "#education", "#contact"].map(
+              {["#about", "#skills", "#projects", "#sae", "#education", "#contact"].map(
                 (href) => {
                   const labels: Record<string, string> = {
                     "#about": "À propos",
                     "#skills": "Compétences",
                     "#projects": "Projets",
+                    "#sae": "SAÉ",
                     "#education": "Parcours",
                     "#contact": "Contact",
                   };

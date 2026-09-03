@@ -1,5 +1,5 @@
 "use client";
-import { ExternalLink, Lock, TrendingUp, BookOpen, LayoutGrid, GraduationCap, Server, Network, Radio } from "lucide-react";
+import { ExternalLink, Lock, TrendingUp, BookOpen, LayoutGrid, GraduationCap } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 
 const projects = [
@@ -11,7 +11,6 @@ const projects = [
     github: "https://github.com/manuelrt1203/scoriq-frontend",
     demo: "https://pronostics-frontend.vercel.app",
     status: null,
-    featured: true,
   },
   {
     title: "Le blog de Mika",
@@ -21,7 +20,6 @@ const projects = [
     github: null,
     demo: "https://le-blog-de-mika.com",
     status: "Dépôt privé",
-    featured: true,
   },
   {
     title: "NetLab",
@@ -31,7 +29,6 @@ const projects = [
     github: "https://github.com/manuelrt1203/netlab",
     demo: "https://netlab-xi.vercel.app",
     status: null,
-    featured: true,
   },
   {
     title: "ENT Scolaire",
@@ -41,37 +38,6 @@ const projects = [
     github: null,
     demo: null,
     status: "En développement — dépôt privé",
-    featured: true,
-  },
-  {
-    title: "GParc — SAÉ 2.3",
-    desc: "Application de gestion de parc informatique pour l'IUT de Béziers : inventaire, affectations, rôles admin/consultant, i18n FR/EN/ES, sécurité CSRF/XSS.",
-    tags: ["PHP", "MySQL", "Sécurité web"],
-    icon: <Server size={24} />,
-    github: null,
-    demo: null,
-    status: "Projet académique",
-    featured: false,
-  },
-  {
-    title: "Réseau multi-sites — SAÉ 2.1",
-    desc: "Conception d'un réseau multi-sites pour une PME fictive : DMZ, VPN IPsec, VLAN, routage inter-VLAN sur Cisco Packet Tracer.",
-    tags: ["Cisco Packet Tracer", "VPN", "VLAN"],
-    icon: <Network size={24} />,
-    github: null,
-    demo: null,
-    status: "Projet académique",
-    featured: false,
-  },
-  {
-    title: "SAÉ intégratif — Préparation 404",
-    desc: "Chaîne IoT complète en équipe de 4 : capteurs LoRaWAN (TTN), Raspberry Pi autonome, RTL-SDR, InfluxDB/Grafana, API, mesures RF terrain.",
-    tags: ["IoT", "LoRaWAN", "Raspberry Pi", "Grafana"],
-    icon: <Radio size={24} />,
-    github: null,
-    demo: null,
-    status: "Projet académique — équipe de 4",
-    featured: false,
   },
 ];
 
@@ -158,9 +124,6 @@ function ProjectLinks({ github, demo, status }: { github: string | null; demo: s
 }
 
 export default function Projects() {
-  const featured = projects.filter((p) => p.featured);
-  const others = projects.filter((p) => !p.featured);
-
   return (
     <section
       id="projects"
@@ -181,22 +144,25 @@ export default function Projects() {
           >
             Projets
           </h2>
-          <p style={{ color: "var(--muted)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-            Projets personnels développés en autonomie, et projets académiques
-            réalisés dans le cadre du BUT R&amp;T.
+          <p style={{ color: "var(--muted)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
+            Projets personnels développés en autonomie, en parallèle des études.
+            Les projets académiques (SAÉ) sont détaillés{" "}
+            <a href="#sae" style={{ color: "var(--primary)", fontWeight: 600 }}>
+              juste en dessous
+            </a>
+            .
           </p>
         </div>
 
-        {/* Featured projects */}
+        {/* Projects grid */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
             gap: 24,
-            marginBottom: 32,
           }}
         >
-          {featured.map((p) => (
+          {projects.map((p) => (
             <div
               key={p.title}
               className="card card-hover"
@@ -223,46 +189,6 @@ export default function Projects() {
               <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 24 }}>
                 {p.tags.map((t) => (
                   <span key={t} className="tag">
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              <ProjectLinks github={p.github} demo={p.demo} status={p.status} />
-            </div>
-          ))}
-        </div>
-
-        {/* Other projects */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-            gap: 20,
-          }}
-        >
-          {others.map((p) => (
-            <div
-              key={p.title}
-              className="card card-hover"
-              style={{ padding: 24 }}
-            >
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
-                <div className="icon-box" style={{ width: 40, height: 40 }}>
-                  {p.icon}
-                </div>
-              </div>
-
-              <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: 8 }}>
-                {p.title}
-              </h3>
-              <p style={{ color: "var(--muted)", fontSize: "0.85rem", lineHeight: 1.6, marginBottom: 16 }}>
-                {p.desc}
-              </p>
-
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}>
-                {p.tags.map((t) => (
-                  <span key={t} className="tag" style={{ fontSize: "0.74rem" }}>
                     {t}
                   </span>
                 ))}
