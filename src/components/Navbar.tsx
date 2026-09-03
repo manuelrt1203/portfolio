@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
-import { Moon, Sun, Menu, X, Code2 } from "lucide-react";
+import { Moon, Sun, Menu, X, Terminal } from "lucide-react";
 
 const links = [
   { href: "#about", label: "À propos" },
@@ -31,13 +31,8 @@ export default function Navbar() {
         right: 0,
         zIndex: 1000,
         padding: scrolled ? "12px 0" : "20px 0",
-        background: scrolled
-          ? theme === "dark"
-            ? "rgba(11,15,26,0.92)"
-            : "rgba(255,255,255,0.92)"
-          : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled ? "1px solid var(--card-border)" : "none",
+        background: scrolled ? "var(--bg)" : "transparent",
+        borderBottom: scrolled ? "1px solid var(--card-border)" : "1px solid transparent",
         transition: "all 0.3s ease",
       }}
     >
@@ -57,26 +52,18 @@ export default function Navbar() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 8,
+            gap: 10,
             textDecoration: "none",
-            fontWeight: 800,
-            fontSize: "1.2rem",
+            fontWeight: 700,
+            fontSize: "1.05rem",
           }}
         >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 10,
-              background: "linear-gradient(135deg, var(--primary), var(--secondary))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Code2 size={20} color="white" />
+          <div className="icon-box" style={{ width: 34, height: 34 }}>
+            <Terminal size={17} strokeWidth={2} />
           </div>
-          <span className="gradient-text">Rodrigue</span>
+          <span className="mono" style={{ color: "var(--fg)" }}>
+            r-tombe<span style={{ color: "var(--primary)" }}>.dev</span>
+          </span>
         </a>
 
         {/* Desktop links */}
@@ -111,10 +98,11 @@ export default function Navbar() {
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <button
             onClick={toggle}
+            aria-label={theme === "dark" ? "Passer en thème clair" : "Passer en thème sombre"}
             style={{
               width: 40,
               height: 40,
-              borderRadius: 10,
+              borderRadius: 4,
               border: "1px solid var(--card-border)",
               background: "var(--card)",
               cursor: "pointer",
@@ -130,7 +118,7 @@ export default function Navbar() {
 
           <a
             href="#contact"
-            className="btn-primary"
+            className="btn-primary hidden-mobile"
             style={{ padding: "8px 20px", fontSize: "0.88rem" }}
           >
             Me contacter
@@ -138,10 +126,12 @@ export default function Navbar() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Ouvrir le menu"
+            aria-expanded={menuOpen}
             style={{
               width: 40,
               height: 40,
-              borderRadius: 10,
+              borderRadius: 4,
               border: "1px solid var(--card-border)",
               background: "var(--card)",
               cursor: "pointer",
@@ -162,7 +152,7 @@ export default function Navbar() {
         <div
           style={{
             padding: "16px 24px 20px",
-            background: theme === "dark" ? "rgba(11,15,26,0.97)" : "rgba(255,255,255,0.97)",
+            background: "var(--bg)",
             borderTop: "1px solid var(--card-border)",
             display: "flex",
             flexDirection: "column",
@@ -184,6 +174,9 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <a href="#contact" className="btn-primary" style={{ justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
+            Me contacter
+          </a>
         </div>
       )}
 

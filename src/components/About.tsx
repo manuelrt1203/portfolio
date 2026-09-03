@@ -1,21 +1,21 @@
 "use client";
-import { Terminal, Cloud, Wifi, BookOpen, PenLine, Palette } from "lucide-react";
+import { Code2, Server, Wifi, BookOpen, PenLine, Palette } from "lucide-react";
 
 const passions = [
   {
-    icon: <Terminal size={22} />,
-    title: "Linux & Systèmes",
-    desc: "Administration, scripting Bash, virtualisation et conteneurisation avec Docker.",
-  },
-  {
-    icon: <Cloud size={22} />,
-    title: "Cloud & DevOps",
-    desc: "AWS, déploiements automatisés, CI/CD, infrastructure as code.",
+    icon: <Code2 size={22} />,
+    title: "Développement Full-Stack",
+    desc: "React, Next.js, TypeScript côté client ; Python, PHP et Supabase côté serveur — du prototype au déploiement.",
   },
   {
     icon: <Wifi size={22} />,
-    title: "Réseaux & IoT",
-    desc: "Protocoles réseau, architectures IoT, Raspberry Pi, capteurs et connectivité.",
+    title: "Réseaux & Télécoms",
+    desc: "VLAN, routage, DMZ, VPN IPsec, certification de câblage — cœur du BUT R&T à l'IUT de Béziers.",
+  },
+  {
+    icon: <Server size={22} />,
+    title: "IoT & Systèmes embarqués",
+    desc: "Capteurs LoRaWAN, Raspberry Pi, RTL-SDR, dashboards Grafana/InfluxDB — expérimentés sur la SAÉ intégratif.",
   },
   {
     icon: <BookOpen size={22} />,
@@ -30,7 +30,7 @@ const passions = [
   {
     icon: <Palette size={22} />,
     title: "Design Graphique",
-    desc: "Création visuelle, UI/UX, identité de marque et communication visuelle.",
+    desc: "Création visuelle, identité de marque et communication visuelle pour mes propres projets.",
   },
 ];
 
@@ -42,26 +42,17 @@ export default function About() {
     >
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 64 }}>
-        <p
-          style={{
-            color: "var(--primary)",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.12em",
-            fontSize: "0.85rem",
-            marginBottom: 12,
-          }}
-        >
+        <p className="eyebrow" style={{ justifyContent: "center" }}>
           Qui suis-je ?
         </p>
         <h2
           style={{
             fontSize: "clamp(2rem, 4vw, 3rem)",
-            fontWeight: 900,
+            fontWeight: 700,
             marginBottom: 16,
           }}
         >
-          À propos de <span className="gradient-text">moi</span>
+          À propos de moi
         </h2>
         <p
           style={{
@@ -72,8 +63,8 @@ export default function About() {
             lineHeight: 1.7,
           }}
         >
-          Je suis Rodrigue Emmanuel, étudiant passionné qui allie technique et
-          créativité. Mon objectif : devenir Ingénieur Cloud/DevOps ou Architecte IoT.
+          Je suis Rodrigue Emmanuel, étudiant qui allie technique et créativité.
+          Mon objectif : poursuivre en Master ou école d&apos;ingénieur après le BUT.
         </p>
       </div>
 
@@ -87,36 +78,20 @@ export default function About() {
         }}
       >
         {/* Bio card */}
-        <div
-          className="glass-card"
-          style={{ padding: 36 }}
-        >
-          <div
-            style={{
-              width: 56,
-              height: 56,
-              borderRadius: 16,
-              background: "linear-gradient(135deg, var(--primary), var(--secondary))",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "1.6rem",
-              marginBottom: 24,
-            }}
-          >
-            🎓
-          </div>
-          <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: 16 }}>
+        <div className="card" style={{ padding: 36 }}>
+          <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: 16 }}>
             Mon Parcours
           </h3>
           <p style={{ color: "var(--muted)", lineHeight: 1.8, marginBottom: 20 }}>
-            Actuellement en <strong style={{ color: "var(--fg)" }}>Bachelor Réseaux & Télécommunications</strong> à
-            l&apos;IUT de Béziers, je construis chaque jour mes compétences en Cloud,
-            Linux et IoT.
+            Depuis septembre 2025, je prépare un{" "}
+            <strong style={{ color: "var(--fg)" }}>BUT Réseaux &amp; Télécommunications</strong> à
+            l&apos;IUT de Béziers, après un baccalauréat scientifique (série C,
+            mention Assez Bien) obtenu en République du Congo en 2024.
           </p>
           <p style={{ color: "var(--muted)", lineHeight: 1.8, marginBottom: 20 }}>
-            Mon ambition : intégrer un <strong style={{ color: "var(--fg)" }}>Master ou une école d&apos;ingénieur</strong>{" "}
-            spécialisée en Cloud/DevOps pour concrétiser mes projets professionnels.
+            En parallèle des cours, je développe mes propres projets web
+            (ScorIQ, un blog éditorial, une plateforme de gestion scolaire) pour
+            mettre en pratique ce que j&apos;apprends — et souvent aller plus loin.
           </p>
           <p style={{ color: "var(--muted)", lineHeight: 1.8 }}>
             En dehors du technique, j&apos;exprime ma créativité à travers mon blog
@@ -126,11 +101,11 @@ export default function About() {
           {/* Info list */}
           <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { label: "📍 Localisation", value: "Béziers, France" },
-              { label: "🎓 Formation", value: "Bachelor R&T — IUT Béziers" },
-              { label: "📧 Email", value: "manuelrt1203@gmail.com" },
-              { label: "🌐 Blog", value: "le-blog-de-mika.com" },
-              { label: "📞 Téléphone", value: "06 68 41 16 35" },
+              { label: "Localisation", value: "Béziers, France" },
+              { label: "Formation", value: "BUT R&T — IUT Béziers" },
+              { label: "Email", value: "manuelrt1203@gmail.com" },
+              { label: "Blog", value: "le-blog-de-mika.com" },
+              { label: "Téléphone", value: "06 68 41 16 35" },
             ].map((item) => (
               <div
                 key={item.label}
@@ -144,7 +119,7 @@ export default function About() {
                   flexWrap: "wrap",
                 }}
               >
-                <span style={{ color: "var(--muted)", fontSize: "0.9rem" }}>
+                <span className="mono" style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
                   {item.label}
                 </span>
                 <span style={{ fontWeight: 600, fontSize: "0.9rem" }}>
@@ -160,12 +135,12 @@ export default function About() {
           <h3
             style={{
               fontSize: "1.3rem",
-              fontWeight: 800,
+              fontWeight: 700,
               marginBottom: 24,
               color: "var(--fg)",
             }}
           >
-            Mes passions & intérêts
+            Mes domaines d&apos;intérêt
           </h3>
           <div
             style={{
@@ -177,22 +152,10 @@ export default function About() {
             {passions.map((p) => (
               <div
                 key={p.title}
-                className="glass-card"
+                className="card"
                 style={{ padding: 20 }}
               >
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 12,
-                    background: "rgba(99,102,241,0.12)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--primary)",
-                    marginBottom: 12,
-                  }}
-                >
+                <div className="icon-box" style={{ width: 44, height: 44, marginBottom: 12 }}>
                   {p.icon}
                 </div>
                 <h4 style={{ fontWeight: 700, fontSize: "0.95rem", marginBottom: 6 }}>

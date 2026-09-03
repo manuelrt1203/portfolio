@@ -3,25 +3,27 @@ import { useState } from "react";
 import { Send, Mail, Phone, MapPin } from "lucide-react";
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "./SocialIcons";
 
+const CONTACT_EMAIL = "manuelrt1203@gmail.com";
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
+    const subject = encodeURIComponent(form.subject || "Contact depuis le portfolio");
+    const body = encodeURIComponent(
+      `${form.message}\n\n— ${form.name} (${form.email})`
+    );
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
     setSent(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
   };
 
   const inputStyle = {
     width: "100%",
     padding: "12px 16px",
-    borderRadius: 10,
-    border: "1.5px solid var(--card-border)",
+    borderRadius: 3,
+    border: "1px solid var(--card-border)",
     background: "var(--bg)",
     color: "var(--fg)",
     fontSize: "0.95rem",
@@ -37,26 +39,17 @@ export default function Contact() {
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <p
-            style={{
-              color: "var(--primary)",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              fontSize: "0.85rem",
-              marginBottom: 12,
-            }}
-          >
+          <p className="eyebrow" style={{ justifyContent: "center" }}>
             Travaillons ensemble
           </p>
           <h2
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 900,
+              fontWeight: 700,
               marginBottom: 16,
             }}
           >
-            Me <span className="gradient-text">Contacter</span>
+            Me Contacter
           </h2>
           <p style={{ color: "var(--muted)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
             Une question, une opportunité de stage ou juste envie d&apos;échanger ?
@@ -77,47 +70,32 @@ export default function Contact() {
               {
                 icon: <Mail size={20} />,
                 label: "Email",
-                value: "manuelrt1203@gmail.com",
-                href: "mailto:manuelrt1203@gmail.com",
-                color: "#6366f1",
+                value: CONTACT_EMAIL,
+                href: `mailto:${CONTACT_EMAIL}`,
               },
               {
                 icon: <Phone size={20} />,
                 label: "Téléphone",
                 value: "06 68 41 16 35",
                 href: "tel:0668411635",
-                color: "#8b5cf6",
               },
               {
                 icon: <MapPin size={20} />,
                 label: "Localisation",
                 value: "Béziers, France",
                 href: null,
-                color: "#06b6d4",
               },
             ].map((c) => (
               <div
                 key={c.label}
-                className="glass-card"
+                className="card"
                 style={{ padding: 20, display: "flex", alignItems: "center", gap: 16 }}
               >
-                <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 12,
-                    background: `${c.color}18`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: c.color,
-                    flexShrink: 0,
-                  }}
-                >
+                <div className="icon-box" style={{ width: 48, height: 48, flexShrink: 0 }}>
                   {c.icon}
                 </div>
                 <div>
-                  <p style={{ color: "var(--muted)", fontSize: "0.8rem", marginBottom: 2 }}>
+                  <p className="mono" style={{ color: "var(--muted)", fontSize: "0.78rem", marginBottom: 2 }}>
                     {c.label}
                   </p>
                   {c.href ? (
@@ -130,7 +108,7 @@ export default function Contact() {
                         fontSize: "0.95rem",
                         transition: "color 0.2s",
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = c.color)}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
                       onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg)")}
                     >
                       {c.value}
@@ -143,15 +121,15 @@ export default function Contact() {
             ))}
 
             {/* Social */}
-            <div className="glass-card" style={{ padding: 24 }}>
+            <div className="card" style={{ padding: 24 }}>
               <p style={{ fontWeight: 700, marginBottom: 16, fontSize: "0.95rem" }}>
                 Réseaux sociaux
               </p>
               <div style={{ display: "flex", gap: 12 }}>
                 {[
-                  { icon: <GithubIcon size={20} />, href: "https://github.com", label: "GitHub", color: "#6366f1" },
-                  { icon: <LinkedinIcon size={20} />, href: "https://linkedin.com", label: "LinkedIn", color: "#0077b5" },
-                  { icon: <InstagramIcon size={20} />, href: "https://instagram.com", label: "Instagram", color: "#e1306c" },
+                  { icon: <GithubIcon size={20} />, href: "https://github.com/manuelrt1203", label: "GitHub" },
+                  { icon: <LinkedinIcon size={20} />, href: "https://www.linkedin.com/in/rodrigue-emmanuel-tombe/", label: "LinkedIn" },
+                  { icon: <InstagramIcon size={20} />, href: "https://www.instagram.com/mika177wise/", label: "Instagram" },
                 ].map((s) => (
                   <a
                     key={s.label}
@@ -159,10 +137,11 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     title={s.label}
+                    aria-label={s.label}
                     style={{
                       width: 48,
                       height: 48,
-                      borderRadius: 12,
+                      borderRadius: 3,
                       border: "1px solid var(--card-border)",
                       background: "var(--bg)",
                       display: "flex",
@@ -173,14 +152,12 @@ export default function Contact() {
                       textDecoration: "none",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = s.color;
-                      e.currentTarget.style.color = s.color;
-                      e.currentTarget.style.transform = "translateY(-3px)";
+                      e.currentTarget.style.borderColor = "var(--primary)";
+                      e.currentTarget.style.color = "var(--primary)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = "var(--card-border)";
                       e.currentTarget.style.color = "var(--muted)";
-                      e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
                     {s.icon}
@@ -191,7 +168,7 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <div className="glass-card" style={{ padding: 36 }}>
+          <div className="card" style={{ padding: 36 }}>
             {sent ? (
               <div
                 style={{
@@ -205,10 +182,13 @@ export default function Contact() {
                   textAlign: "center",
                 }}
               >
-                <div style={{ fontSize: "3rem" }}>✅</div>
-                <h3 style={{ fontSize: "1.3rem", fontWeight: 800 }}>Message envoyé !</h3>
+                <div className="icon-box" style={{ width: 56, height: 56 }}>
+                  <Send size={24} />
+                </div>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 700 }}>Client mail ouvert</h3>
                 <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-                  Merci pour votre message. Je vous répondrai dans les plus brefs délais.
+                  Votre message a été pré-rempli dans votre messagerie. Finalisez
+                  l&apos;envoi depuis celle-ci pour que je le reçoive.
                 </p>
                 <button
                   onClick={() => setSent(false)}
@@ -220,7 +200,7 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 4 }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: 4 }}>
                   Envoyez-moi un message
                 </h3>
 
@@ -232,10 +212,11 @@ export default function Contact() {
                   }}
                 >
                   <div>
-                    <label style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
+                    <label htmlFor="contact-name" style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
                       Nom *
                     </label>
                     <input
+                      id="contact-name"
                       required
                       placeholder="Votre nom"
                       value={form.name}
@@ -244,10 +225,11 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <label style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
+                    <label htmlFor="contact-email" style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
                       Email *
                     </label>
                     <input
+                      id="contact-email"
                       required
                       type="email"
                       placeholder="votre@email.com"
@@ -259,10 +241,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
+                  <label htmlFor="contact-subject" style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
                     Sujet *
                   </label>
                   <input
+                    id="contact-subject"
                     required
                     placeholder="Objet de votre message"
                     value={form.subject}
@@ -272,10 +255,11 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
+                  <label htmlFor="contact-message" style={{ fontSize: "0.85rem", fontWeight: 600, display: "block", marginBottom: 6 }}>
                     Message *
                   </label>
                   <textarea
+                    id="contact-message"
                     required
                     rows={5}
                     placeholder="Décrivez votre projet, votre question..."
@@ -287,17 +271,10 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  disabled={loading}
                   className="btn-primary"
-                  style={{ justifyContent: "center", opacity: loading ? 0.7 : 1 }}
+                  style={{ justifyContent: "center" }}
                 >
-                  {loading ? (
-                    "Envoi en cours..."
-                  ) : (
-                    <>
-                      <Send size={16} /> Envoyer le message
-                    </>
-                  )}
+                  <Send size={16} /> Envoyer le message
                 </button>
               </form>
             )}

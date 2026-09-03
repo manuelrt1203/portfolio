@@ -5,9 +5,9 @@ import { GithubIcon, LinkedinIcon, InstagramIcon } from "./SocialIcons";
 
 const roles = [
   "Étudiant en Réseaux & Télécoms",
-  "Futur Ingénieur Cloud/DevOps",
-  "Passionné Linux & IoT",
-  "Architecte en devenir",
+  "Développeur Full-Stack",
+  "React · Next.js · Python",
+  "IUT de Béziers",
 ];
 
 export default function Hero() {
@@ -37,8 +37,11 @@ export default function Hero() {
         }, 30);
         return () => clearTimeout(t);
       } else {
-        setRoleIndex((i) => (i + 1) % roles.length);
-        setTyping(true);
+        const t = setTimeout(() => {
+          setRoleIndex((i) => (i + 1) % roles.length);
+          setTyping(true);
+        }, 0);
+        return () => clearTimeout(t);
       }
     }
   }, [charIndex, typing, roleIndex]);
@@ -55,35 +58,6 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
-      {/* Background blobs */}
-      <div
-        className="blob"
-        style={{
-          position: "absolute",
-          top: "10%",
-          right: "5%",
-          width: 500,
-          height: 500,
-          background:
-            "radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.08) 60%, transparent 100%)",
-          borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "10%",
-          left: "2%",
-          width: 400,
-          height: 400,
-          background:
-            "radial-gradient(ellipse, rgba(6,182,212,0.12) 0%, transparent 70%)",
-          borderRadius: "50%",
-          pointerEvents: "none",
-        }}
-      />
-
       <div
         style={{
           maxWidth: 1200,
@@ -99,53 +73,52 @@ export default function Hero() {
         {/* Text content */}
         <div style={{ flex: "1 1 480px", maxWidth: 600 }}>
           <div
+            className="mono"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              padding: "6px 16px",
-              borderRadius: 999,
-              background: "rgba(99,102,241,0.1)",
-              border: "1px solid rgba(99,102,241,0.3)",
+              padding: "6px 14px",
+              borderRadius: 3,
+              border: "1px solid var(--card-border)",
               marginBottom: 24,
-              fontSize: "0.85rem",
-              color: "var(--primary)",
-              fontWeight: 600,
+              fontSize: "0.8rem",
+              color: "var(--muted)",
             }}
           >
             <span
               style={{
-                width: 8,
-                height: 8,
+                width: 7,
+                height: 7,
                 borderRadius: "50%",
-                background: "#10b981",
+                background: "#22c55e",
                 display: "inline-block",
-                boxShadow: "0 0 8px #10b981",
+                flexShrink: 0,
               }}
             />
-            Disponible pour stages & alternances
+            Disponible pour stages &amp; alternances
           </div>
 
           <h1
             style={{
               fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
-              fontWeight: 900,
+              fontWeight: 700,
               lineHeight: 1.1,
               marginBottom: 16,
-              letterSpacing: "-0.02em",
             }}
           >
-            Bonjour, je suis{" "}
-            <span className="gradient-text">Rodrigue Emmanuel</span>
+            Rodrigue Emmanuel<br />
+            <span style={{ color: "var(--primary)" }}>Tombe</span>
           </h1>
 
           <div
+            className="mono"
             style={{
-              fontSize: "clamp(1.1rem, 2.5vw, 1.4rem)",
+              fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
               color: "var(--muted)",
               fontWeight: 500,
               marginBottom: 20,
-              minHeight: "2rem",
+              minHeight: "1.8rem",
             }}
           >
             {displayed}
@@ -161,10 +134,9 @@ export default function Hero() {
               maxWidth: 520,
             }}
           >
-            Étudiant en Bachelor Réseaux & Télécoms à l&apos;IUT de Béziers.
-            Passionné par les systèmes Linux, le Cloud et l&apos;IoT. Je crée des
-            solutions techniques élégantes et je documente mon parcours à travers
-            mon blog et mes projets.
+            Étudiant en BUT Réseaux &amp; Télécommunications à l&apos;IUT de Béziers.
+            Je construis des applications web complètes (React, Next.js, Python) et
+            des architectures réseau, du prototype au déploiement.
           </p>
 
           <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 40 }}>
@@ -187,17 +159,17 @@ export default function Hero() {
             {[
               {
                 icon: <GithubIcon size={20} />,
-                href: "https://github.com/rodrigue-emmanuel",
+                href: "https://github.com/manuelrt1203",
                 label: "GitHub",
               },
               {
                 icon: <LinkedinIcon size={20} />,
-                href: "https://linkedin.com/in/rodrigue-emmanuel",
+                href: "https://www.linkedin.com/in/rodrigue-emmanuel-tombe/",
                 label: "LinkedIn",
               },
               {
                 icon: <InstagramIcon size={20} />,
-                href: "https://instagram.com",
+                href: "https://www.instagram.com/mika177wise/",
                 label: "Instagram",
               },
             ].map((s) => (
@@ -207,10 +179,11 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={s.label}
+                aria-label={s.label}
                 style={{
                   width: 44,
                   height: 44,
-                  borderRadius: 12,
+                  borderRadius: 4,
                   border: "1px solid var(--card-border)",
                   background: "var(--card)",
                   display: "flex",
@@ -223,12 +196,10 @@ export default function Hero() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "var(--primary)";
                   e.currentTarget.style.color = "var(--primary)";
-                  e.currentTarget.style.transform = "translateY(-3px)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "var(--card-border)";
                   e.currentTarget.style.color = "var(--muted)";
-                  e.currentTarget.style.transform = "translateY(0)";
                 }}
               >
                 {s.icon}
@@ -237,7 +208,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Avatar card */}
+        {/* Monogram card */}
         <div
           style={{
             flex: "0 0 auto",
@@ -248,84 +219,83 @@ export default function Hero() {
           }}
         >
           <div
-            className="float"
+            className="card"
             style={{
               position: "relative",
-              width: 280,
-              height: 280,
+              width: 260,
+              height: 260,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 6,
+              borderColor: "var(--primary)",
+              borderWidth: 2,
             }}
           >
-            {/* Glow ring */}
-            <div
-              style={{
-                position: "absolute",
-                inset: -4,
-                borderRadius: "50%",
-                background:
-                  "linear-gradient(135deg, var(--primary), var(--secondary), var(--accent))",
-                padding: 4,
-              }}
-            >
-              <div
+            {/* corner brackets */}
+            {[
+              { top: -1, left: -1, borderWidth: "3px 0 0 3px" },
+              { top: -1, right: -1, borderWidth: "3px 3px 0 0" },
+              { bottom: -1, left: -1, borderWidth: "0 0 3px 3px" },
+              { bottom: -1, right: -1, borderWidth: "0 3px 3px 0" },
+            ].map((pos, i) => (
+              <span
+                key={i}
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  borderRadius: "50%",
-                  background: "var(--bg)",
+                  position: "absolute",
+                  width: 20,
+                  height: 20,
+                  borderColor: "var(--primary)",
+                  borderStyle: "solid",
+                  ...pos,
                 }}
               />
-            </div>
-            {/* Avatar placeholder */}
-            <div
+            ))}
+            <span
               style={{
-                position: "absolute",
-                inset: 4,
-                borderRadius: "50%",
-                background:
-                  "linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.2))",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "5rem",
-                overflow: "hidden",
+                fontFamily: "var(--font-space-grotesk)",
+                fontSize: "4.5rem",
+                fontWeight: 700,
+                color: "var(--fg)",
               }}
             >
-              👨‍💻
-            </div>
+              RE<span style={{ color: "var(--primary)" }}>.</span>
+            </span>
           </div>
 
           {/* Stats */}
           <div
             style={{
               display: "flex",
-              gap: 16,
+              gap: 12,
             }}
           >
             {[
-              { label: "Projets", value: "10+" },
-              { label: "Articles", value: "20+" },
-              { label: "Langages", value: "5+" },
+              { label: "Projets web", value: "4" },
+              { label: "SAÉ", value: "9" },
+              { label: "Articles", value: "10" },
             ].map((s) => (
               <div
                 key={s.label}
-                className="glass-card"
+                className="card"
                 style={{
-                  padding: "12px 18px",
+                  padding: "12px 16px",
                   textAlign: "center",
                   minWidth: 72,
                 }}
               >
                 <div
+                  className="mono"
                   style={{
-                    fontSize: "1.4rem",
-                    fontWeight: 800,
+                    fontSize: "1.3rem",
+                    fontWeight: 700,
                     color: "var(--primary)",
                   }}
                 >
                   {s.value}
                 </div>
                 <div
-                  style={{ fontSize: "0.75rem", color: "var(--muted)", fontWeight: 500 }}
+                  style={{ fontSize: "0.72rem", color: "var(--muted)", fontWeight: 500 }}
                 >
                   {s.label}
                 </div>
@@ -338,6 +308,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <a
         href="#about"
+        aria-label="Découvrir la suite"
         style={{
           position: "absolute",
           bottom: 32,
@@ -352,8 +323,8 @@ export default function Hero() {
           fontSize: "0.8rem",
         }}
       >
-        <span>Découvrir</span>
-        <ArrowDown size={16} style={{ animation: "float 2s ease-in-out infinite" }} />
+        <span className="mono">scroll</span>
+        <ArrowDown size={16} />
       </a>
     </section>
   );

@@ -1,69 +1,161 @@
 "use client";
-import { ExternalLink, Star } from "lucide-react";
+import { ExternalLink, Lock, TrendingUp, BookOpen, LayoutGrid, GraduationCap, Server, Network, Radio } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 
 const projects = [
   {
-    title: "Portfolio Personnel",
-    desc: "Ce portfolio — construit avec Next.js 15, TypeScript et Tailwind CSS. Déployé sur Vercel avec thème sombre/clair.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Vercel"],
-    icon: "🌐",
-    color: "#6366f1",
-    github: "#",
-    demo: "#",
+    title: "ScorIQ",
+    desc: "Pronostics football pilotés par IA : probabilités 1X2/BTTS/over-under (Dixon-Coles + LightGBM), détection de value bets, historique de précision public. Backend FastAPI/PostgreSQL sur Render, frontend React/Vite sur Vercel.",
+    tags: ["React", "FastAPI", "PostgreSQL", "Machine Learning"],
+    icon: <TrendingUp size={24} />,
+    github: "https://github.com/manuelrt1203/scoriq-frontend",
+    demo: "https://pronostics-frontend.vercel.app",
+    status: null,
     featured: true,
   },
   {
-    title: "Blog Littéraire",
-    desc: "Blog dédié aux interviews d'auteurs et aux conseils d'écriture. Plateforme créée pour partager la passion de la littérature.",
-    tags: ["Blog", "Wix", "SEO", "Rédaction"],
-    icon: "📝",
-    color: "#8b5cf6",
+    title: "Le blog de Mika",
+    desc: "Blog éditorial avec newsletter intégrée : articles au format magazine, back-office admin pour la rédaction et l'envoi de campagnes. Next.js 16, MDX, Turso, Resend.",
+    tags: ["Next.js", "TypeScript", "MDX", "Resend"],
+    icon: <BookOpen size={24} />,
     github: null,
     demo: "https://le-blog-de-mika.com",
+    status: "Dépôt privé",
     featured: true,
   },
   {
-    title: "IA Portfolio Assistant",
-    desc: "Assistant IA intégré dans le portfolio Wix. Répond aux questions des visiteurs sur mon parcours et mes projets.",
-    tags: ["IA", "Wix", "Chatbot", "API"],
-    icon: "🤖",
-    color: "#06b6d4",
+    title: "NetLab",
+    desc: "16 outils pédagogiques interactifs (réseaux, systèmes, algorithmique, télécoms, sécurité, maths) — 100% client, sans inscription.",
+    tags: ["Next.js", "TypeScript", "Canvas API"],
+    icon: <LayoutGrid size={24} />,
+    github: "https://github.com/manuelrt1203/netlab",
+    demo: "https://netlab-xi.vercel.app",
+    status: null,
+    featured: true,
+  },
+  {
+    title: "ENT Scolaire",
+    desc: "Logiciel de gestion scolaire (notes, messagerie) pour direction, professeurs, élèves et parents. Monorepo desktop (Electron) + web + mobile (Expo) partageant un client Supabase commun.",
+    tags: ["Electron", "React Native", "Supabase", "TypeScript"],
+    icon: <GraduationCap size={24} />,
     github: null,
-    demo: "https://manuelrt1203.wixsite.com/le-portfolio-de-rodr",
+    demo: null,
+    status: "En développement — dépôt privé",
     featured: true,
   },
   {
-    title: "Réseau d'Entreprise Simulé",
-    desc: "Conception et configuration d'une infrastructure réseau complète avec VLANs, routage inter-VLAN, DHCP et ACLs sur Packet Tracer.",
-    tags: ["Cisco", "VLAN", "Routage", "Réseaux"],
-    icon: "🔗",
-    color: "#10b981",
-    github: "#",
+    title: "GParc — SAÉ 2.3",
+    desc: "Application de gestion de parc informatique pour l'IUT de Béziers : inventaire, affectations, rôles admin/consultant, i18n FR/EN/ES, sécurité CSRF/XSS.",
+    tags: ["PHP", "MySQL", "Sécurité web"],
+    icon: <Server size={24} />,
+    github: null,
     demo: null,
+    status: "Projet académique",
     featured: false,
   },
   {
-    title: "Scripts d'Automatisation Linux",
-    desc: "Collection de scripts Bash pour l'automatisation de tâches système : sauvegarde, monitoring, déploiement et gestion de services.",
-    tags: ["Bash", "Linux", "Automatisation", "DevOps"],
-    icon: "⚙️",
-    color: "#f59e0b",
-    github: "#",
+    title: "Réseau multi-sites — SAÉ 2.1",
+    desc: "Conception d'un réseau multi-sites pour une PME fictive : DMZ, VPN IPsec, VLAN, routage inter-VLAN sur Cisco Packet Tracer.",
+    tags: ["Cisco Packet Tracer", "VPN", "VLAN"],
+    icon: <Network size={24} />,
+    github: null,
     demo: null,
+    status: "Projet académique",
     featured: false,
   },
   {
-    title: "Station Météo IoT",
-    desc: "Capteurs connectés (température, humidité, pression) avec Raspberry Pi. Données affichées en temps réel sur un dashboard web.",
-    tags: ["IoT", "Raspberry Pi", "Python", "MQTT"],
-    icon: "🌡️",
-    color: "#ef4444",
-    github: "#",
+    title: "SAÉ intégratif — Préparation 404",
+    desc: "Chaîne IoT complète en équipe de 4 : capteurs LoRaWAN (TTN), Raspberry Pi autonome, RTL-SDR, InfluxDB/Grafana, API, mesures RF terrain.",
+    tags: ["IoT", "LoRaWAN", "Raspberry Pi", "Grafana"],
+    icon: <Radio size={24} />,
+    github: null,
     demo: null,
+    status: "Projet académique — équipe de 4",
     featured: false,
   },
 ];
+
+function ProjectLinks({ github, demo, status }: { github: string | null; demo: string | null; status: string | null }) {
+  if (!github && !demo) {
+    return (
+      <div
+        className="mono"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 6,
+          fontSize: "0.8rem",
+          color: "var(--muted-2)",
+        }}
+      >
+        <Lock size={13} /> {status}
+      </div>
+    );
+  }
+  return (
+    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
+      {github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            padding: "8px 16px",
+            borderRadius: 3,
+            border: "1px solid var(--card-border)",
+            background: "transparent",
+            color: "var(--muted)",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            fontWeight: 500,
+            transition: "all 0.2s",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "var(--primary)";
+            e.currentTarget.style.color = "var(--primary)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "var(--card-border)";
+            e.currentTarget.style.color = "var(--muted)";
+          }}
+        >
+          <GithubIcon size={15} /> Code
+        </a>
+      )}
+      {demo && (
+        <a
+          href={demo}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            padding: "8px 16px",
+            borderRadius: 3,
+            background: "color-mix(in srgb, var(--primary) 10%, transparent)",
+            border: "1px solid var(--primary)",
+            color: "var(--primary)",
+            textDecoration: "none",
+            fontSize: "0.85rem",
+            fontWeight: 500,
+            transition: "all 0.2s",
+          }}
+        >
+          <ExternalLink size={15} /> Voir le projet
+        </a>
+      )}
+      {status && (
+        <span className="mono" style={{ fontSize: "0.75rem", color: "var(--muted-2)" }}>
+          {status}
+        </span>
+      )}
+    </div>
+  );
+}
 
 export default function Projects() {
   const featured = projects.filter((p) => p.featured);
@@ -77,30 +169,21 @@ export default function Projects() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <p
-            style={{
-              color: "var(--primary)",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              fontSize: "0.85rem",
-              marginBottom: 12,
-            }}
-          >
+          <p className="eyebrow" style={{ justifyContent: "center" }}>
             Ce que j&apos;ai réalisé
           </p>
           <h2
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 900,
+              fontWeight: 700,
               marginBottom: 16,
             }}
           >
-            Mes <span className="gradient-text">Projets</span>
+            Projets
           </h2>
           <p style={{ color: "var(--muted)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-            Des projets techniques, créatifs et innovants qui reflètent ma curiosité
-            et mes ambitions.
+            Projets personnels développés en autonomie, et projets académiques
+            réalisés dans le cadre du BUT R&amp;T.
           </p>
         </div>
 
@@ -116,60 +199,14 @@ export default function Projects() {
           {featured.map((p) => (
             <div
               key={p.title}
-              className="glass-card"
-              style={{ padding: 32, position: "relative", overflow: "hidden" }}
+              className="card card-hover"
+              style={{ padding: 32, position: "relative" }}
             >
-              {/* Featured badge */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 16,
-                  right: 16,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 4,
-                  padding: "4px 10px",
-                  borderRadius: 999,
-                  background: "rgba(245,158,11,0.12)",
-                  border: "1px solid rgba(245,158,11,0.3)",
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  color: "#f59e0b",
-                }}
-              >
-                <Star size={12} fill="#f59e0b" /> Featured
-              </div>
-
-              {/* Top accent line */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 3,
-                  background: `linear-gradient(90deg, ${p.color}, transparent)`,
-                }}
-              />
-
-              <div
-                style={{
-                  width: 52,
-                  height: 52,
-                  borderRadius: 14,
-                  background: `${p.color}20`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.6rem",
-                  marginBottom: 20,
-                  marginTop: 8,
-                }}
-              >
+              <div className="icon-box" style={{ width: 52, height: 52, marginBottom: 20 }}>
                 {p.icon}
               </div>
 
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 12 }}>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: 12 }}>
                 {p.title}
               </h3>
               <p
@@ -191,68 +228,7 @@ export default function Projects() {
                 ))}
               </div>
 
-              <div style={{ display: "flex", gap: 12 }}>
-                {p.github && (
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      padding: "8px 16px",
-                      borderRadius: 8,
-                      border: "1px solid var(--card-border)",
-                      background: "transparent",
-                      color: "var(--muted)",
-                      textDecoration: "none",
-                      fontSize: "0.85rem",
-                      fontWeight: 500,
-                      transition: "all 0.2s",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "var(--primary)";
-                      e.currentTarget.style.color = "var(--primary)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "var(--card-border)";
-                      e.currentTarget.style.color = "var(--muted)";
-                    }}
-                  >
-                    <GithubIcon size={15} /> Code
-                  </a>
-                )}
-                {p.demo && (
-                  <a
-                    href={p.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      padding: "8px 16px",
-                      borderRadius: 8,
-                      background: `${p.color}15`,
-                      border: `1px solid ${p.color}40`,
-                      color: p.color,
-                      textDecoration: "none",
-                      fontSize: "0.85rem",
-                      fontWeight: 500,
-                      transition: "all 0.2s",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = `${p.color}25`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = `${p.color}15`;
-                    }}
-                  >
-                    <ExternalLink size={15} /> Voir le projet
-                  </a>
-                )}
-              </div>
+              <ProjectLinks github={p.github} demo={p.demo} status={p.status} />
             </div>
           ))}
         </div>
@@ -268,41 +244,12 @@ export default function Projects() {
           {others.map((p) => (
             <div
               key={p.title}
-              className="glass-card"
-              style={{ padding: 24, position: "relative", overflow: "hidden" }}
+              className="card card-hover"
+              style={{ padding: 24 }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: 2,
-                  background: `linear-gradient(90deg, ${p.color}, transparent)`,
-                }}
-              />
-
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16, marginTop: 4 }}>
-                <span style={{ fontSize: "1.8rem" }}>{p.icon}</span>
-                <div style={{ display: "flex", gap: 8 }}>
-                  {p.github && (
-                    <a href={p.github} target="_blank" rel="noopener noreferrer"
-                      style={{ color: "var(--muted)", transition: "color 0.2s" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
-                    >
-                      <GithubIcon size={18} />
-                    </a>
-                  )}
-                  {p.demo && (
-                    <a href={p.demo} target="_blank" rel="noopener noreferrer"
-                      style={{ color: "var(--muted)", transition: "color 0.2s" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "var(--primary)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
-                    >
-                      <ExternalLink size={18} />
-                    </a>
-                  )}
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 16 }}>
+                <div className="icon-box" style={{ width: 40, height: 40 }}>
+                  {p.icon}
                 </div>
               </div>
 
@@ -313,13 +260,15 @@ export default function Projects() {
                 {p.desc}
               </p>
 
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}>
                 {p.tags.map((t) => (
                   <span key={t} className="tag" style={{ fontSize: "0.74rem" }}>
                     {t}
                   </span>
                 ))}
               </div>
+
+              <ProjectLinks github={p.github} demo={p.demo} status={p.status} />
             </div>
           ))}
         </div>

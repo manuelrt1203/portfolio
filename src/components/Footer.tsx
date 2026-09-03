@@ -1,5 +1,5 @@
 "use client";
-import { Code2, Heart, ExternalLink } from "lucide-react";
+import { Terminal, ExternalLink } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -34,30 +34,19 @@ export default function Footer() {
                 marginBottom: 12,
               }}
             >
-              <div
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 12,
-                  background:
-                    "linear-gradient(135deg, var(--primary), var(--secondary))",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Code2 size={20} color="white" />
+              <div className="icon-box" style={{ width: 36, height: 36 }}>
+                <Terminal size={18} />
               </div>
               <span
-                className="gradient-text"
-                style={{ fontSize: "1.2rem", fontWeight: 800 }}
+                className="mono"
+                style={{ fontSize: "1.1rem", fontWeight: 700 }}
               >
-                Rodrigue Emmanuel
+                Rodrigue Emmanuel Tombe
               </span>
             </div>
             <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.7 }}>
-              Étudiant en Réseaux & Télécoms, passionné par le Cloud, Linux et l&apos;IoT.
-              Futur Ingénieur Cloud/DevOps.
+              Étudiant en BUT Réseaux &amp; Télécommunications, développeur
+              full-stack — IUT de Béziers.
             </p>
           </div>
 
@@ -71,12 +60,14 @@ export default function Footer() {
           >
             <div>
               <p
+                className="mono"
                 style={{
                   fontWeight: 700,
-                  fontSize: "0.88rem",
+                  fontSize: "0.8rem",
                   marginBottom: 14,
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
+                  color: "var(--muted)",
                 }}
               >
                 Navigation
@@ -118,23 +109,23 @@ export default function Footer() {
 
             <div>
               <p
+                className="mono"
                 style={{
                   fontWeight: 700,
-                  fontSize: "0.88rem",
+                  fontSize: "0.8rem",
                   marginBottom: 14,
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
+                  color: "var(--muted)",
                 }}
               >
                 Projets
               </p>
               {[
-                { label: "Blog Littéraire", href: "https://le-blog-de-mika.com" },
-                {
-                  label: "Portfolio Wix",
-                  href: "https://manuelrt1203.wixsite.com/le-portfolio-de-rodr",
-                },
-                { label: "GitHub", href: "https://github.com" },
+                { label: "ScorIQ", href: "https://pronostics-frontend.vercel.app" },
+                { label: "Le blog de Mika", href: "https://le-blog-de-mika.com" },
+                { label: "NetLab", href: "https://netlab-xi.vercel.app" },
+                { label: "GitHub", href: "https://github.com/manuelrt1203" },
               ].map((l) => (
                 <a
                   key={l.label}
@@ -178,21 +169,11 @@ export default function Footer() {
             gap: 12,
           }}
         >
-          <p
-            style={{
-              color: "var(--muted)",
-              fontSize: "0.85rem",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-            }}
-          >
-            © {year} Rodrigue Emmanuel — Fait avec{" "}
-            <Heart size={14} style={{ color: "#ef4444", fill: "#ef4444" }} /> &
-            Next.js
+          <p className="mono" style={{ color: "var(--muted)", fontSize: "0.82rem" }}>
+            © {year} Rodrigue Emmanuel Tombe
           </p>
-          <p style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
-            Déployé sur{" "}
+          <p className="mono" style={{ color: "var(--muted)", fontSize: "0.82rem" }}>
+            Next.js · Déployé sur{" "}
             <span style={{ color: "var(--primary)", fontWeight: 600 }}>Vercel</span>
           </p>
         </div>

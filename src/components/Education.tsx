@@ -1,50 +1,69 @@
 "use client";
+import { GraduationCap, BookOpen, Radio, Layers, ServerCog, Newspaper } from "lucide-react";
 
 const timeline = [
   {
-    year: "2024 – Présent",
-    title: "Bachelor Réseaux & Télécommunications",
-    org: "IUT de Béziers",
-    desc: "Formation approfondie en réseaux informatiques, systèmes, programmation et télécommunications. Projets pratiques sur Cisco, Linux, et développement.",
-    icon: "🎓",
-    type: "education",
-    tags: ["Réseaux", "Linux", "Python", "Cisco"],
-  },
-  {
-    year: "2023 – 2024",
-    title: "BUT Réseaux & Télécommunications (1ère année)",
-    org: "IUT de Béziers",
-    desc: "Introduction aux fondamentaux des réseaux, de l'administration système Linux et de la programmation Python.",
-    icon: "📚",
-    type: "education",
-    tags: ["TCP/IP", "Linux", "Python", "HTML/CSS"],
-  },
-  {
-    year: "2023",
-    title: "Baccalauréat STI2D",
-    org: "Lycée",
-    desc: "Baccalauréat Sciences et Technologies de l'Industrie et du Développement Durable, spécialité Systèmes d'Information et Numérique.",
-    icon: "🏫",
-    type: "education",
-    tags: ["STI2D", "SIN", "Électronique"],
-  },
-  {
     year: "2024",
-    title: "Lancement du Blog Littéraire",
-    org: "le-blog-de-mika.com",
-    desc: "Création et gestion d'un blog dédié à la littérature : interviews d'auteurs, conseils d'écriture, et promotion de la lecture.",
-    icon: "✍️",
+    title: "Baccalauréat série C (scientifique)",
+    org: "République du Congo — mention Assez Bien",
+    desc: "Filière scientifique, spécialité mathématiques-physique.",
+    icon: <GraduationCap size={22} />,
+    type: "education",
+    tags: ["Mathématiques", "Physique"],
+  },
+  {
+    year: "Sept. 2025",
+    title: "BUT Réseaux & Télécommunications — Semestre 1",
+    org: "IUT de Béziers",
+    desc: "Fondamentaux réseaux, Linux, Python. 5 SAÉ : hygiène informatique, réseau VLAN pour une maison d'hôte, certification de câblage Cat 6A, projet professionnel, traitement de données (open data Montpellier).",
+    icon: <BookOpen size={22} />,
+    type: "education",
+    tags: ["VLAN", "Linux", "Python", "Cisco"],
+  },
+  {
+    year: "Fév. 2026",
+    title: "BUT R&T — Semestre 2",
+    org: "IUT de Béziers",
+    desc: "3 SAÉ : réseau multi-sites avec DMZ et VPN IPsec, numérisation d'un signal audio (échantillonnage/quantification), GParc — application web PHP/MySQL de gestion de parc informatique.",
+    icon: <Layers size={22} />,
+    type: "education",
+    tags: ["VPN", "Signal", "PHP/MySQL"],
+  },
+  {
+    year: "Avr. 2026",
+    title: "ScorIQ & Le blog de Mika",
+    org: "Projets personnels",
+    desc: "Lancement de ScorIQ (pronostics football pilotés par IA) et du Blog de Mika (blog éditorial avec newsletter), tous deux en développement actif depuis.",
+    icon: <Newspaper size={22} />,
     type: "project",
-    tags: ["Blog", "Rédaction", "SEO"],
+    tags: ["React", "FastAPI", "Next.js"],
   },
   {
-    year: "2024",
-    title: "Portfolio + IA intégrée",
+    year: "Mai 2026",
+    title: "NetLab",
     org: "Projet personnel",
-    desc: "Développement du portfolio Wix avec assistant IA pour répondre aux visiteurs. Premier projet alliant création web et intelligence artificielle.",
-    icon: "🤖",
+    desc: "Suite de 16 outils pédagogiques interactifs (réseaux, systèmes, algorithmique, télécoms) déployée sur Vercel.",
+    icon: <ServerCog size={22} />,
     type: "project",
-    tags: ["IA", "Web", "Portfolio"],
+    tags: ["Next.js", "Canvas API"],
+  },
+  {
+    year: "Juin 2026",
+    title: "SAÉ intégratif — Préparation 404",
+    org: "IUT de Béziers — Équipe 4",
+    desc: "Chaîne IoT complète en équipe de 4 : capteurs LoRaWAN, Raspberry Pi autonome, RTL-SDR, dashboards Grafana/InfluxDB, API et mesures RF terrain.",
+    icon: <Radio size={22} />,
+    type: "education",
+    tags: ["LoRaWAN", "Raspberry Pi", "Grafana"],
+  },
+  {
+    year: "Juil. 2026",
+    title: "ENT Scolaire",
+    org: "Projet personnel",
+    desc: "Développement d'une plateforme de gestion scolaire (notes, messagerie) — desktop Electron, web et mobile Expo partageant un client Supabase commun.",
+    icon: <GraduationCap size={22} />,
+    type: "project",
+    tags: ["Electron", "React Native", "Supabase"],
   },
 ];
 
@@ -62,30 +81,21 @@ export default function Education() {
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <p
-            style={{
-              color: "var(--primary)",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              fontSize: "0.85rem",
-              marginBottom: 12,
-            }}
-          >
+          <p className="eyebrow" style={{ justifyContent: "center" }}>
             Mon histoire
           </p>
           <h2
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 900,
+              fontWeight: 700,
               marginBottom: 16,
             }}
           >
-            Parcours & <span className="gradient-text">Timeline</span>
+            Parcours &amp; Timeline
           </h2>
           <p style={{ color: "var(--muted)", maxWidth: 480, margin: "0 auto", lineHeight: 1.7 }}>
-            Mon chemin académique et mes réalisations personnelles, de l&apos;école
-            aux projets créatifs.
+            Mon chemin académique et mes réalisations, du bac aux projets menés
+            en parallèle des études.
           </p>
         </div>
 
@@ -99,7 +109,7 @@ export default function Education() {
               top: 0,
               bottom: 0,
               width: 2,
-              background: "linear-gradient(to bottom, var(--primary), var(--secondary), var(--card-border))",
+              background: "var(--card-border)",
               transform: "translateX(-50%)",
             }}
           />
@@ -122,20 +132,18 @@ export default function Education() {
                     position: "absolute",
                     left: "50%",
                     top: 20,
-                    width: 16,
-                    height: 16,
-                    borderRadius: "50%",
-                    background: item.type === "education" ? "var(--primary)" : "var(--secondary)",
-                    border: "3px solid var(--bg)",
+                    width: 12,
+                    height: 12,
+                    background: item.type === "education" ? "var(--primary)" : "var(--fg)",
+                    border: "3px solid var(--card)",
                     transform: "translateX(-50%)",
                     zIndex: 1,
-                    boxShadow: `0 0 12px ${item.type === "education" ? "var(--primary)" : "var(--secondary)"}`,
                   }}
                 />
 
                 {/* Card */}
                 <div
-                  className="glass-card"
+                  className="card"
                   style={{
                     width: "calc(50% - 40px)",
                     padding: 24,
@@ -153,33 +161,25 @@ export default function Education() {
                       gap: 8,
                     }}
                   >
-                    <span
-                      style={{
-                        fontSize: "1.6rem",
-                        lineHeight: 1,
-                      }}
-                    >
+                    <div className="icon-box" style={{ width: 40, height: 40 }}>
                       {item.icon}
-                    </span>
+                    </div>
                     <span
+                      className="mono"
                       style={{
-                        fontSize: "0.8rem",
-                        fontWeight: 700,
+                        fontSize: "0.78rem",
+                        fontWeight: 600,
                         padding: "4px 10px",
-                        borderRadius: 999,
-                        background:
-                          item.type === "education"
-                            ? "rgba(99,102,241,0.12)"
-                            : "rgba(139,92,246,0.12)",
-                        color:
-                          item.type === "education" ? "var(--primary)" : "var(--secondary)",
+                        borderRadius: 3,
+                        border: "1px solid var(--card-border)",
+                        color: item.type === "education" ? "var(--primary)" : "var(--fg)",
                       }}
                     >
                       {item.year}
                     </span>
                   </div>
 
-                  <h3 style={{ fontSize: "1rem", fontWeight: 800, marginBottom: 4 }}>
+                  <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: 4 }}>
                     {item.title}
                   </h3>
                   <p
@@ -205,7 +205,7 @@ export default function Education() {
 
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {item.tags.map((t) => (
-                      <span key={t} className="tag" style={{ fontSize: "0.74rem" }}>
+                      <span key={t} className="tag" style={{ fontSize: "0.72rem" }}>
                         {t}
                       </span>
                     ))}
@@ -220,7 +220,7 @@ export default function Education() {
       {/* Mobile timeline note */}
       <style>{`
         @media (max-width: 640px) {
-          #education .glass-card {
+          #education .card {
             width: calc(100% - 32px) !important;
             margin-left: 32px !important;
             margin-right: 0 !important;

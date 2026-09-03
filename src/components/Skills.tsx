@@ -1,36 +1,37 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import {
+  Code2, MessageSquare, Users, Brain, Zap, PenLine, Wrench,
+} from "lucide-react";
 
 const techSkills = [
-  { name: "Python", level: 75, icon: "🐍" },
-  { name: "Linux / Bash", level: 80, icon: "🐧" },
-  { name: "HTML / CSS", level: 85, icon: "🎨" },
-  { name: "Réseaux (TCP/IP, VLAN...)", level: 78, icon: "🌐" },
-  { name: "Docker / Conteneurisation", level: 60, icon: "🐳" },
-  { name: "Git / GitHub", level: 70, icon: "🔀" },
-  { name: "Cloud (AWS Basics)", level: 55, icon: "☁️" },
-  { name: "IoT (Raspberry Pi)", level: 65, icon: "🔌" },
+  { name: "React / Next.js", level: 82 },
+  { name: "TypeScript / JavaScript", level: 80 },
+  { name: "Python", level: 75 },
+  { name: "Réseaux (VLAN, routage, DNS/DHCP)", level: 78 },
+  { name: "PHP / MySQL", level: 65 },
+  { name: "Supabase / PostgreSQL", level: 70 },
+  { name: "Linux / administration serveur", level: 68 },
+  { name: "Git / GitHub", level: 72 },
 ];
 
 const softSkills = [
-  { name: "Communication", icon: "💬" },
-  { name: "Travail en équipe", icon: "🤝" },
-  { name: "Curiosité intellectuelle", icon: "🧠" },
-  { name: "Autonomie", icon: "⚡" },
-  { name: "Créativité", icon: "🎨" },
-  { name: "Résolution de problèmes", icon: "🔧" },
-  { name: "Rédaction / Blog", icon: "✍️" },
-  { name: "Adaptabilité", icon: "🔄" },
+  { name: "Communication", icon: <MessageSquare size={15} /> },
+  { name: "Travail en équipe", icon: <Users size={15} /> },
+  { name: "Curiosité intellectuelle", icon: <Brain size={15} /> },
+  { name: "Autonomie", icon: <Zap size={15} /> },
+  { name: "Gestion de deadline", icon: <Wrench size={15} /> },
+  { name: "Rédaction / Blog", icon: <PenLine size={15} /> },
 ];
 
 const tools = [
-  "VS Code", "Neovim", "Wireshark", "Cisco Packet Tracer",
-  "VirtualBox", "Proxmox", "Ansible (bases)", "Nginx",
-  "WordPress", "Figma", "Discord Bot", "Notion",
+  "Next.js", "React", "FastAPI", "PostgreSQL", "PHP/MySQL",
+  "Electron", "Expo / React Native", "Cisco Packet Tracer",
+  "Vercel", "Render", "Grafana / InfluxDB", "Wireshark", "Git",
 ];
 
-function SkillBar({ name, level, icon, visible }: {
-  name: string; level: number; icon: string; visible: boolean;
+function SkillBar({ name, level, visible }: {
+  name: string; level: number; visible: boolean;
 }) {
   return (
     <div style={{ marginBottom: 20 }}>
@@ -42,18 +43,16 @@ function SkillBar({ name, level, icon, visible }: {
           alignItems: "center",
         }}
       >
-        <span style={{ fontWeight: 600, fontSize: "0.92rem", display: "flex", gap: 8, alignItems: "center" }}>
-          <span>{icon}</span> {name}
-        </span>
-        <span style={{ color: "var(--primary)", fontWeight: 700, fontSize: "0.88rem" }}>
+        <span style={{ fontWeight: 600, fontSize: "0.9rem" }}>{name}</span>
+        <span className="mono" style={{ color: "var(--primary)", fontWeight: 600, fontSize: "0.82rem" }}>
           {level}%
         </span>
       </div>
       <div
         style={{
-          height: 8,
+          height: 6,
           background: "var(--card-border)",
-          borderRadius: 4,
+          borderRadius: 2,
           overflow: "hidden",
         }}
       >
@@ -61,9 +60,9 @@ function SkillBar({ name, level, icon, visible }: {
           style={{
             height: "100%",
             width: visible ? `${level}%` : "0%",
-            background: "linear-gradient(90deg, var(--primary), var(--accent))",
-            borderRadius: 4,
-            transition: "width 1.2s ease",
+            background: "var(--primary)",
+            borderRadius: 2,
+            transition: "width 1s ease",
           }}
         />
       </div>
@@ -98,30 +97,21 @@ export default function Skills() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <p
-            style={{
-              color: "var(--primary)",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.12em",
-              fontSize: "0.85rem",
-              marginBottom: 12,
-            }}
-          >
+          <p className="eyebrow" style={{ justifyContent: "center" }}>
             Ce que je maîtrise
           </p>
           <h2
             style={{
               fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 900,
+              fontWeight: 700,
               marginBottom: 16,
             }}
           >
-            Mes <span className="gradient-text">Compétences</span>
+            Compétences
           </h2>
           <p style={{ color: "var(--muted)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-            Un mélange de compétences techniques et humaines forgées par la pratique,
-            les projets et la passion.
+            Des compétences techniques et humaines forgées par la pratique — projets
+            personnels, SAÉ et travail en équipe.
           </p>
         </div>
 
@@ -133,9 +123,9 @@ export default function Skills() {
           }}
         >
           {/* Tech skills */}
-          <div className="glass-card" style={{ padding: 36 }}>
-            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 28 }}>
-              🛠️ Compétences Techniques
+          <div className="card" style={{ padding: 36 }}>
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
+              <Code2 size={20} color="var(--primary)" /> Compétences techniques
             </h3>
             {techSkills.map((s) => (
               <SkillBar key={s.name} {...s} visible={visible} />
@@ -144,9 +134,9 @@ export default function Skills() {
 
           {/* Soft skills + tools */}
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <div className="glass-card" style={{ padding: 36 }}>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 24 }}>
-                🧠 Compétences Humaines
+            <div className="card" style={{ padding: 36 }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
+                <Brain size={20} color="var(--primary)" /> Compétences humaines
               </h3>
               <div
                 style={{
@@ -163,33 +153,32 @@ export default function Skills() {
                       alignItems: "center",
                       gap: 6,
                       padding: "8px 14px",
-                      borderRadius: 10,
-                      background: "rgba(99,102,241,0.08)",
-                      border: "1px solid rgba(99,102,241,0.2)",
-                      fontSize: "0.88rem",
+                      borderRadius: 3,
+                      border: "1px solid var(--card-border)",
+                      fontSize: "0.85rem",
                       fontWeight: 500,
                       color: "var(--fg)",
                       transition: "all 0.2s",
                       cursor: "default",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "rgba(99,102,241,0.18)";
                       e.currentTarget.style.borderColor = "var(--primary)";
+                      e.currentTarget.style.color = "var(--primary)";
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "rgba(99,102,241,0.08)";
-                      e.currentTarget.style.borderColor = "rgba(99,102,241,0.2)";
+                      e.currentTarget.style.borderColor = "var(--card-border)";
+                      e.currentTarget.style.color = "var(--fg)";
                     }}
                   >
-                    <span>{s.icon}</span> {s.name}
+                    {s.icon} {s.name}
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="glass-card" style={{ padding: 36 }}>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 24 }}>
-                🔧 Outils & Technologies
+            <div className="card" style={{ padding: 36 }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
+                <Wrench size={20} color="var(--primary)" /> Outils &amp; technologies
               </h3>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {tools.map((t) => (
