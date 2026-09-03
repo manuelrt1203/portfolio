@@ -8,14 +8,14 @@ const LEVELS = ["Notions", "Bases solides", "Opérationnel", "Confirmé"] as con
 type Level = (typeof LEVELS)[number];
 
 const techSkills: { name: string; level: Level }[] = [
-  { name: "React / Next.js", level: "Confirmé" },
-  { name: "TypeScript / JavaScript", level: "Confirmé" },
-  { name: "Python", level: "Opérationnel" },
+  { name: "React / Next.js", level: "Bases solides" },
+  { name: "TypeScript / JavaScript", level: "Bases solides" },
+  { name: "Python", level: "Bases solides" },
   { name: "Réseaux (VLAN, routage, DNS/DHCP)", level: "Opérationnel" },
   { name: "PHP / MySQL", level: "Bases solides" },
-  { name: "Supabase / PostgreSQL", level: "Opérationnel" },
+  { name: "Supabase / PostgreSQL", level: "Bases solides" },
   { name: "Linux / administration serveur", level: "Bases solides" },
-  { name: "Git / GitHub", level: "Opérationnel" },
+  { name: "Git / GitHub", level: "Bases solides" },
 ];
 
 const softSkills = [

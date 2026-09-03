@@ -273,7 +273,7 @@ export default function Hero() {
             {[
               { label: "Projets web", value: "4" },
               { label: "SAÉ", value: "9" },
-              { label: "Articles", value: "10" },
+              { label: "Articles", value: "11" },
             ].map((s) => (
               <div
                 key={s.label}
