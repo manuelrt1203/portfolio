@@ -65,6 +65,33 @@ const timeline = [
     type: "project",
     tags: ["Electron", "React Native", "Supabase"],
   },
+  {
+    year: "Sept. 2026",
+    title: "BUT R&T — Semestre 3 (Parcours Cloud)",
+    org: "IUT de Béziers",
+    desc: "Spécialisation Cloud et réseaux d'entreprise. SAÉ 3.01 : modélisation 3D interactive et simulation du raccordement FTTH GPON (Three.js / Remotion).",
+    icon: <BookOpen size={22} />,
+    type: "education",
+    tags: ["Cloud", "FTTH", "Three.js", "BGP"],
+  },
+  {
+    year: "Oct. 2026",
+    title: "NetCanvas",
+    org: "Projet personnel",
+    desc: "Concepteur et simulateur desktop de topologies réseau avec export automatique de configurations Cisco IOS et MikroTik RouterOS.",
+    icon: <ServerCog size={22} />,
+    type: "project",
+    tags: ["Electron", "Cisco", "MikroTik", "Supabase"],
+  },
+  {
+    year: "Nov. 2026",
+    title: "Atelier IA",
+    org: "Projet personnel",
+    desc: "Orchestrateur multi-agents autonome local en Python standard (35 rôles, 9 départements, 101 tests unitaires validant les contrats).",
+    icon: <Layers size={22} />,
+    type: "project",
+    tags: ["Python", "Multi-Agents", "Docker", "Tests"],
+  },
 ];
 
 export default function Education() {

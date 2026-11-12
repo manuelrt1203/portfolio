@@ -1,169 +1,110 @@
 "use client";
-import { Code2, Server, Wifi, BookOpen, PenLine, Palette } from "lucide-react";
+import { Code2, Server, Wifi, Sparkles, BookOpen, Layers } from "lucide-react";
 
-const passions = [
+const domains = [
   {
-    icon: <Code2 size={22} />,
-    title: "Développement Full-Stack",
-    desc: "React, Next.js, TypeScript côté client ; Python, PHP et Supabase côté serveur — du prototype au déploiement.",
+    icon: <Sparkles size={20} className="text-[var(--primary)]" />,
+    title: "Ingénierie Logicielle & IA",
+    desc: "Architecture modulaire et accélération par agents IA autonomes (Atelier IA, Claude Code, Antigravity) avec tests rigoureux.",
   },
   {
-    icon: <Wifi size={22} />,
-    title: "Réseaux & Télécoms",
-    desc: "VLAN, routage, DMZ, VPN IPsec, certification de câblage — cœur du BUT R&T à l'IUT de Béziers.",
+    icon: <Wifi size={20} className="text-[var(--primary)]" />,
+    title: "Réseaux d'Entreprise",
+    desc: "VLAN, routage dynamique OSPF/BGP, politiques de sécurité ACL, NAT et conception réseau sous Cisco et MikroTik.",
   },
   {
-    icon: <Server size={22} />,
-    title: "IoT & Systèmes embarqués",
-    desc: "Capteurs LoRaWAN, Raspberry Pi, RTL-SDR, dashboards Grafana/InfluxDB — expérimentés sur la SAÉ intégratif.",
+    icon: <Layers size={20} className="text-[var(--primary)]" />,
+    title: "Applications Desktop & Web",
+    desc: "Outils techniques sur mesure (NetCanvas sous Electron, NetLab en Next.js, ScorIQ avec FastAPI) du code au déploiement.",
   },
   {
-    icon: <BookOpen size={22} />,
-    title: "Blog Littéraire",
-    desc: "Interviews d'auteurs, conseils d'écriture — le-blog-de-mika.com",
+    icon: <Server size={20} className="text-[var(--primary)]" />,
+    title: "Cloud & Systèmes",
+    desc: "Linux Debian/Ubuntu, conteneurs Docker, hébergement cloud (Render, Vercel), pipelines CI/CD GitHub Actions.",
   },
   {
-    icon: <PenLine size={22} />,
-    title: "Écriture & Poésie",
-    desc: "Poésie publiée sur Wattpad sous @Mika177wise. La créativité nourrit la technique.",
+    icon: <Code2 size={20} className="text-[var(--primary)]" />,
+    title: "Télécoms & Fibre Optique",
+    desc: "Conception de raccordements FTTH GPON (SAÉ 3.01 en 3D), bilans de puissance optique et certification cuivre Cat 6A.",
   },
   {
-    icon: <Palette size={22} />,
-    title: "Design Graphique",
-    desc: "Création visuelle, identité de marque et communication visuelle pour mes propres projets.",
+    icon: <BookOpen size={20} className="text-[var(--primary)]" />,
+    title: "Édition & Rédaction",
+    desc: "Rédaction technique, notes d'ingénierie et animation de mon blog personnel (le-blog-de-mika.com).",
   },
 ];
 
 export default function About() {
   return (
-    <section
-      id="about"
-      style={{ padding: "100px 24px", maxWidth: 1200, margin: "0 auto" }}
-    >
-      {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: 64 }}>
-        <p className="eyebrow" style={{ justifyContent: "center" }}>
-          Qui suis-je ?
-        </p>
-        <h2
-          style={{
-            fontSize: "clamp(2rem, 4vw, 3rem)",
-            fontWeight: 700,
-            marginBottom: 16,
-          }}
-        >
-          À propos de moi
-        </h2>
-        <p
-          style={{
-            color: "var(--muted)",
-            maxWidth: 600,
-            margin: "0 auto",
-            fontSize: "1.05rem",
-            lineHeight: 1.7,
-          }}
-        >
-          Je suis Rodrigue Emmanuel, étudiant qui allie technique et créativité.
-          Mon objectif : poursuivre en Master ou école d&apos;ingénieur après le BUT.
-        </p>
-      </div>
-
-      {/* Main content */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: 40,
-          alignItems: "start",
-        }}
-      >
-        {/* Bio card */}
-        <div className="card" style={{ padding: 36 }}>
-          <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: 16 }}>
-            Mon Parcours
-          </h3>
-          <p style={{ color: "var(--muted)", lineHeight: 1.8, marginBottom: 20 }}>
-            Depuis septembre 2025, je prépare un{" "}
-            <strong style={{ color: "var(--fg)" }}>BUT Réseaux &amp; Télécommunications</strong> à
-            l&apos;IUT de Béziers, après un baccalauréat scientifique (série C,
-            mention Assez Bien) obtenu en République du Congo en 2024.
-          </p>
-          <p style={{ color: "var(--muted)", lineHeight: 1.8, marginBottom: 20 }}>
-            En parallèle des cours, je développe mes propres projets web
-            (ScorIQ, un blog éditorial, une plateforme de gestion scolaire) pour
-            mettre en pratique ce que j&apos;apprends — et souvent aller plus loin.
-          </p>
-          <p style={{ color: "var(--muted)", lineHeight: 1.8 }}>
-            En dehors du technique, j&apos;exprime ma créativité à travers mon blog
-            littéraire, la poésie et le design graphique.
-          </p>
-
-          {/* Info list */}
-          <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
-            {[
-              { label: "Localisation", value: "Béziers, France" },
-              { label: "Formation", value: "BUT R&T — IUT Béziers" },
-              { label: "Email", value: "manuelrt1203@gmail.com" },
-              { label: "Blog", value: "le-blog-de-mika.com" },
-              { label: "Téléphone", value: "06 68 41 16 35" },
-            ].map((item) => (
-              <div
-                key={item.label}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "10px 0",
-                  borderBottom: "1px solid var(--card-border)",
-                  gap: 16,
-                  flexWrap: "wrap",
-                }}
-              >
-                <span className="mono" style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
-                  {item.label}
-                </span>
-                <span style={{ fontWeight: 600, fontSize: "0.9rem" }}>
-                  {item.value}
-                </span>
-              </div>
-            ))}
+    <section id="about" className="py-24 px-6 border-b border-[var(--card-border)] bg-[var(--bg)]">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <div className="mb-14 text-center">
+          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[var(--primary)] font-semibold mb-3">
+            <span className="w-2 h-2 bg-[var(--primary)]" />
+            // 03 — Profil &amp; Trajectoire
           </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--fg)]">
+            À Propos de Rodrigue Emmanuel
+          </h2>
+          <p className="text-sm sm:text-base text-[var(--muted)] max-w-xl mx-auto mt-2 leading-relaxed">
+            Passionné par la convergence entre infrastructures réseau physiques, déploiements Cloud et développement
+            logiciel augmenté par l&apos;intelligence artificielle.
+          </p>
         </div>
 
-        {/* Passions grid */}
-        <div>
-          <h3
-            style={{
-              fontSize: "1.3rem",
-              fontWeight: 700,
-              marginBottom: 24,
-              color: "var(--fg)",
-            }}
-          >
-            Mes domaines d&apos;intérêt
-          </h3>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-              gap: 16,
-            }}
-          >
-            {passions.map((p) => (
+        {/* Grille principale */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Carte Parcours */}
+          <div className="lg:col-span-5 rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-6 space-y-5">
+            <h3 className="text-lg font-bold text-[var(--fg)]">Mon Parcours</h3>
+            
+            <p className="text-xs sm:text-sm text-[var(--muted)] leading-relaxed">
+              Étudiant en <strong className="text-[var(--fg)] font-semibold">2e année de BUT Réseaux &amp; Télécommunications (parcours Cloud)</strong> à
+              l&apos;IUT de Béziers (Université de Montpellier), après l&apos;obtention d&apos;un baccalauréat scientifique
+              (série C, mention Assez Bien) en 2024.
+            </p>
+
+            <p className="text-xs sm:text-sm text-[var(--muted)] leading-relaxed">
+              Pour concrétiser mes acquis théoriques, je conçois et maintiens des systèmes applicatifs et des outils réseau
+              complets (<strong className="text-[var(--fg)] font-semibold">NetCanvas</strong>, <strong className="text-[var(--fg)] font-semibold">ScorIQ</strong>, <strong className="text-[var(--fg)] font-semibold">NetLab</strong>, <strong className="text-[var(--fg)] font-semibold">Atelier IA</strong>).
+              J&apos;utilise l&apos;IA comme un levier pour démultiplier ma vélocité tout en garantissant une validation technique sans compromis.
+            </p>
+
+            <div className="pt-4 border-t border-[var(--card-border)] space-y-2.5 font-mono text-xs">
+              <div className="flex justify-between py-1 border-b border-[var(--card-border)]">
+                <span className="text-[var(--muted)]">Disponibilité stage</span>
+                <span className="font-semibold text-[var(--fg)]">18 janv. — 29 mars 2027</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[var(--card-border)]">
+                <span className="text-[var(--muted)]">Localisation</span>
+                <span className="font-semibold text-[var(--fg)]">Béziers / Occitanie &amp; France</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[var(--card-border)]">
+                <span className="text-[var(--muted)]">Formation</span>
+                <span className="font-semibold text-[var(--fg)]">BUT R&amp;T (Cloud) · IUT Béziers</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-[var(--muted)]">Objectif post-BUT</span>
+                <span className="font-semibold text-[var(--fg)]">École d&apos;ingénieur / Master</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Grille des Domaines d'intérêt */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {domains.map((d) => (
               <div
-                key={p.title}
-                className="card"
-                style={{ padding: 20 }}
+                key={d.title}
+                className="p-5 rounded-lg border border-[var(--card-border)] bg-[var(--card)] hover:border-[var(--primary)] transition flex flex-col justify-between"
               >
-                <div className="icon-box" style={{ width: 44, height: 44, marginBottom: 12 }}>
-                  {p.icon}
+                <div>
+                  <div className="w-9 h-9 rounded bg-[var(--bg)] border border-[var(--card-border)] flex items-center justify-center mb-3">
+                    {d.icon}
+                  </div>
+                  <h4 className="text-sm font-bold text-[var(--fg)] mb-1.5">{d.title}</h4>
+                  <p className="text-xs text-[var(--muted)] leading-relaxed">{d.desc}</p>
                 </div>
-                <h4 style={{ fontWeight: 700, fontSize: "0.95rem", marginBottom: 6 }}>
-                  {p.title}
-                </h4>
-                <p style={{ color: "var(--muted)", fontSize: "0.83rem", lineHeight: 1.6 }}>
-                  {p.desc}
-                </p>
               </div>
             ))}
           </div>

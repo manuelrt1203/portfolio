@@ -2,7 +2,7 @@
 import { useState } from "react";
 import {
   ShieldAlert, Network, Cable, UserRound, BarChart3,
-  Waypoints, AudioLines, Server, Radio, ChevronRight,
+  Waypoints, AudioLines, Server, Radio, Box, ChevronRight,
 } from "lucide-react";
 import Modal from "./Modal";
 import { saeItems, type SaeItem } from "@/data/sae";
@@ -17,9 +17,10 @@ const icons: Record<string, React.ReactNode> = {
   "wavestream-audio": <AudioLines size={22} />,
   "gparc": <Server size={22} />,
   "integratif-404": <Radio size={22} />,
+  "sae301-ftth-3d": <Box size={22} />,
 };
 
-const semesters: SaeItem["semester"][] = ["Semestre 1", "Semestre 2", "SAÉ intégratif"];
+const semesters: SaeItem["semester"][] = ["Semestre 1", "Semestre 2", "Semestre 3", "SAÉ intégratif"];
 
 export default function SAE() {
   const [active, setActive] = useState<SaeItem | null>(null);
@@ -41,8 +42,8 @@ export default function SAE() {
             SAÉ — BUT R&amp;T
           </h2>
           <p style={{ color: "var(--muted)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
-            9 situations d&apos;apprentissage et d&apos;évaluation menées à l&apos;IUT de
-            Béziers. Clique sur une carte pour voir l&apos;objectif, le travail réalisé,
+            10 situations d&apos;apprentissage et d&apos;évaluation menées à l&apos;IUT de
+            Béziers. Cliquez sur une carte pour voir l&apos;objectif, le travail réalisé,
             les compétences mobilisées et les livrables de chacune.
           </p>
         </div>

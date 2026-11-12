@@ -1,196 +1,91 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import {
-  Code2, MessageSquare, Users, Brain, Zap, PenLine, Wrench,
-} from "lucide-react";
+import { Sparkles, Network, Code2, Cloud, Check } from "lucide-react";
+import { skillCategories, type SkillCategory } from "@/data/skills";
 
-const LEVELS = ["Notions", "Bases solides", "Opérationnel", "Confirmé"] as const;
-type Level = (typeof LEVELS)[number];
-
-const techSkills: { name: string; level: Level }[] = [
-  { name: "React / Next.js", level: "Bases solides" },
-  { name: "TypeScript / JavaScript", level: "Bases solides" },
-  { name: "Python", level: "Bases solides" },
-  { name: "Réseaux (VLAN, routage, DNS/DHCP)", level: "Opérationnel" },
-  { name: "PHP / MySQL", level: "Bases solides" },
-  { name: "Supabase / PostgreSQL", level: "Bases solides" },
-  { name: "Linux / administration serveur", level: "Bases solides" },
-  { name: "Git / GitHub", level: "Bases solides" },
-];
-
-const softSkills = [
-  { name: "Communication", icon: <MessageSquare size={15} /> },
-  { name: "Travail en équipe", icon: <Users size={15} /> },
-  { name: "Curiosité intellectuelle", icon: <Brain size={15} /> },
-  { name: "Autonomie", icon: <Zap size={15} /> },
-  { name: "Gestion de deadline", icon: <Wrench size={15} /> },
-  { name: "Rédaction / Blog", icon: <PenLine size={15} /> },
-];
-
-const tools = [
-  "Next.js", "React", "FastAPI", "PostgreSQL", "PHP/MySQL",
-  "Electron", "Expo / React Native", "Cisco Packet Tracer",
-  "Vercel", "Render", "Grafana / InfluxDB", "Wireshark", "Git",
-];
-
-function SkillBar({ name, level, visible }: {
-  name: string; level: Level; visible: boolean;
-}) {
-  const tier = LEVELS.indexOf(level) + 1;
-  return (
-    <div style={{ marginBottom: 18 }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 8,
-          alignItems: "center",
-          gap: 12,
-          flexWrap: "wrap",
-        }}
-      >
-        <span style={{ fontWeight: 600, fontSize: "0.9rem" }}>{name}</span>
-        <span className="mono" style={{ color: "var(--muted)", fontWeight: 500, fontSize: "0.78rem" }}>
-          {level}
-        </span>
-      </div>
-      <div style={{ display: "flex", gap: 4 }}>
-        {LEVELS.map((_, i) => (
-          <div
-            key={i}
-            style={{
-              height: 5,
-              flex: 1,
-              borderRadius: 1,
-              background: visible && i < tier ? "var(--primary)" : "var(--card-border)",
-              transition: `background 0.4s ease ${i * 0.08}s`,
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+const iconMap = {
+  ai: <Sparkles size={20} className="text-[var(--primary)]" />,
+  network: <Network size={20} className="text-[var(--primary)]" />,
+  code: <Code2 size={20} className="text-[var(--primary)]" />,
+  cloud: <Cloud size={20} className="text-[var(--primary)]" />,
+};
 
 export default function Skills() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      id="skills"
-      ref={sectionRef}
-      style={{
-        padding: "100px 24px",
-        background: "var(--card)",
-        borderTop: "1px solid var(--card-border)",
-        borderBottom: "1px solid var(--card-border)",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <p className="eyebrow" style={{ justifyContent: "center" }}>
-            Ce que je maîtrise
-          </p>
-          <h2
-            style={{
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 700,
-              marginBottom: 16,
-            }}
-          >
-            Compétences
+    <section id="skills" className="py-24 px-6 border-b border-[var(--card-border)] bg-[var(--card)]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[var(--primary)] font-semibold mb-3">
+            <span className="w-2 h-2 bg-[var(--primary)]" />
+            // 02 — Compétences &amp; Méthode
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--fg)]">
+            Matrice de Compétences Vérifiables
           </h2>
-          <p style={{ color: "var(--muted)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-            Des compétences techniques et humaines forgées par la pratique — projets
-            personnels, SAÉ et travail en équipe.
+          <p className="text-sm sm:text-base text-[var(--muted)] max-w-2xl mt-2 leading-relaxed">
+            Pas de jauges arbitraires ou d&apos;auto-évaluations subjectives : chaque compétence repose sur
+            des livrables concrets, du code en production ou des projets académiques menés à l&apos;IUT.
           </p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))",
-            gap: 40,
-          }}
-        >
-          {/* Tech skills */}
-          <div className="card" style={{ padding: 36 }}>
-            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 28, display: "flex", alignItems: "center", gap: 10 }}>
-              <Code2 size={20} color="var(--primary)" /> Compétences techniques
-            </h3>
-            {techSkills.map((s) => (
-              <SkillBar key={s.name} {...s} visible={visible} />
-            ))}
-          </div>
-
-          {/* Soft skills + tools */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <div className="card" style={{ padding: 36 }}>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
-                <Brain size={20} color="var(--primary)" /> Compétences humaines
-              </h3>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: 10,
-                }}
-              >
-                {softSkills.map((s) => (
-                  <div
-                    key={s.name}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      padding: "8px 14px",
-                      borderRadius: 3,
-                      border: "1px solid var(--card-border)",
-                      fontSize: "0.85rem",
-                      fontWeight: 500,
-                      color: "var(--fg)",
-                      transition: "all 0.2s",
-                      cursor: "default",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "var(--primary)";
-                      e.currentTarget.style.color = "var(--primary)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "var(--card-border)";
-                      e.currentTarget.style.color = "var(--fg)";
-                    }}
-                  >
-                    {s.icon} {s.name}
+        {/* 4 Piliers Techniques */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {skillCategories.map((category) => (
+            <div
+              key={category.title}
+              className="rounded-lg border border-[var(--card-border)] bg-[var(--bg)] p-6 flex flex-col justify-between"
+            >
+              <div>
+                {/* Header Catégorie */}
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded bg-[var(--card)] border border-[var(--card-border)]">
+                    {iconMap[category.iconName]}
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-[var(--fg)]">{category.title}</h3>
+                    <p className="text-xs font-mono text-[var(--muted-2)]">{category.subtitle}</p>
+                  </div>
+                </div>
 
-            <div className="card" style={{ padding: 36 }}>
-              <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 24, display: "flex", alignItems: "center", gap: 10 }}>
-                <Wrench size={20} color="var(--primary)" /> Outils &amp; technologies
-              </h3>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {tools.map((t) => (
-                  <span key={t} className="tag">
-                    {t}
-                  </span>
-                ))}
+                {/* Liste des compétences du pilier */}
+                <div className="space-y-4 mt-6">
+                  {category.skills.map((skill) => (
+                    <div
+                      key={skill.name}
+                      className="p-3.5 rounded border border-[var(--card-border)] bg-[var(--card)] space-y-1.5"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-sm font-semibold text-[var(--fg)]">{skill.name}</h4>
+                      </div>
+                      <p className="text-xs text-[var(--muted)] leading-relaxed">{skill.description}</p>
+                      <div className="pt-2 flex items-center gap-1.5 text-[11px] font-mono text-[var(--primary)]">
+                        <Check size={12} className="flex-shrink-0" />
+                        <span className="truncate">Preuve : {skill.proof}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Note de méthode en bas de section */}
+        <div className="mt-12 p-5 rounded-lg border border-[var(--card-border)] bg-[var(--bg)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--primary)] flex-shrink-0" />
+            <p className="text-xs sm:text-sm text-[var(--fg)]">
+              <strong className="font-semibold">Méthodologie :</strong> L&apos;IA est utilisée comme un accélérateur
+              d&apos;exécution, tandis que la conception, la validation des protocoles et les tests de non-régression
+              restent strictement humains et rigoureux.
+            </p>
           </div>
+          <a
+            href="#sae"
+            className="text-xs font-mono font-semibold text-[var(--primary)] hover:underline whitespace-nowrap self-end sm:self-auto"
+          >
+            Consulter les 10 SAÉ associées →
+          </a>
         </div>
       </div>
     </section>

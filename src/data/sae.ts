@@ -1,7 +1,7 @@
 export type SaeItem = {
   slug: string;
   code: string;
-  semester: "Semestre 1" | "Semestre 2" | "SAÉ intégratif";
+  semester: "Semestre 1" | "Semestre 2" | "Semestre 3" | "SAÉ intégratif";
   title: string;
   status: string;
   objectif: string;
@@ -273,6 +273,35 @@ export const saeItems: SaeItem[] = [
       "Feuille de mesures terrain",
       "4 vidéos de présentation individuelles",
       "4 URLs publiques : API, cartographie, vidéos, Grafana",
+    ],
+  },
+  {
+    slug: "sae301-ftth-3d",
+    code: "SAÉ 3.01",
+    semester: "Semestre 3",
+    title: "Plan 3D & maquette interactive de raccordement FTTH",
+    status: "Terminé",
+    objectif:
+      "Modélisation et visualisation 3D du dossier technique de raccordement FTTH GPON d'un ensemble immobilier à Rouen : tranchées, NRO, armoires de rue, colonnes montantes et PTO.",
+    travail: [
+      "Modélisation géométrique 3D sous Three.js et intégration React Three Fiber / Remotion",
+      "Scénarisation du déploiement en 4 phases avec simulation du sous-sol et conduits enterrés",
+      "Calcul des longueurs réelles, affaiblissements optiques et budget de puissance optique GPON",
+      "Génération de vues photoréalistes sous Blender (Cycles) et panoramas 360° WebXR",
+    ],
+    competences: [
+      "Ingénierie FTTH / GPON",
+      "Bilan de liaison optique",
+      "Three.js & WebGL",
+      "Visualisation 3D temps réel",
+      "Normes de génie civil télécom",
+      "Modélisation Blender",
+    ],
+    livrables: [
+      "Application web 3D interactive autonome",
+      "Vidéo technique animée (Remotion)",
+      "Panoramas 360° pour casque VR",
+      "Dossier technique et plan d'exécution",
     ],
   },
 ];

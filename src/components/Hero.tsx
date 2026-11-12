@@ -1,331 +1,145 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Download, ArrowDown } from "lucide-react";
-import { GithubIcon, LinkedinIcon, InstagramIcon } from "./SocialIcons";
-
-const roles = [
-  "Étudiant en Réseaux & Télécoms",
-  "Développeur Full-Stack",
-  "React · Next.js · Python",
-  "IUT de Béziers",
-];
+import { Download, ArrowDown, Sparkles, Terminal, ShieldCheck, MapPin } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "./SocialIcons";
 
 export default function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
-  const [typing, setTyping] = useState(true);
-  const [charIndex, setCharIndex] = useState(0);
-
-  useEffect(() => {
-    const current = roles[roleIndex];
-    if (typing) {
-      if (charIndex < current.length) {
-        const t = setTimeout(() => {
-          setDisplayed(current.slice(0, charIndex + 1));
-          setCharIndex((c) => c + 1);
-        }, 55);
-        return () => clearTimeout(t);
-      } else {
-        const t = setTimeout(() => setTyping(false), 1800);
-        return () => clearTimeout(t);
-      }
-    } else {
-      if (charIndex > 0) {
-        const t = setTimeout(() => {
-          setDisplayed(current.slice(0, charIndex - 1));
-          setCharIndex((c) => c - 1);
-        }, 30);
-        return () => clearTimeout(t);
-      } else {
-        const t = setTimeout(() => {
-          setRoleIndex((i) => (i + 1) % roles.length);
-          setTyping(true);
-        }, 0);
-        return () => clearTimeout(t);
-      }
-    }
-  }, [charIndex, typing, roleIndex]);
-
   return (
     <section
       id="hero"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        position: "relative",
-        padding: "120px 24px 80px",
-        overflow: "hidden",
-      }}
+      className="relative min-h-[92vh] flex items-center pt-28 pb-16 px-6 overflow-hidden border-b border-[var(--card-border)] bg-[var(--bg)]"
     >
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 48,
-          flexWrap: "wrap",
-        }}
-      >
-        {/* Text content */}
-        <div style={{ flex: "1 1 480px", maxWidth: 600 }}>
-          <div
-            className="mono"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "6px 14px",
-              borderRadius: 3,
-              border: "1px solid var(--card-border)",
-              marginBottom: 24,
-              fontSize: "0.8rem",
-              color: "var(--muted)",
-            }}
-          >
-            <span
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                background: "#22c55e",
-                display: "inline-block",
-                flexShrink: 0,
-              }}
-            />
-            Disponible pour stages &amp; alternances
+      <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* Colonne Principale */}
+        <div className="lg:col-span-8 flex flex-col items-start">
+          {/* Badge Stage */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded border border-[var(--card-border)] bg-[var(--card)] text-xs font-mono text-[var(--muted)] mb-6 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+            <span className="font-semibold text-[var(--fg)]">Recherche de stage DevOps / Cloud</span>
+            <span className="text-[var(--muted-2)]">·</span>
+            <span>18 janv. — 29 mars 2027 (8 à 10 sem.)</span>
           </div>
 
-          <h1
-            style={{
-              fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
-              fontWeight: 700,
-              lineHeight: 1.1,
-              marginBottom: 16,
-            }}
-          >
-            Rodrigue Emmanuel<br />
-            <span style={{ color: "var(--primary)" }}>Tombe</span>
+          {/* Titre Principal */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[var(--fg)] leading-[1.1] mb-6">
+            Rodrigue Emmanuel <span className="text-[var(--primary)]">Tombe</span>
           </h1>
 
-          <div
-            className="mono"
-            style={{
-              fontSize: "clamp(1rem, 2.2vw, 1.2rem)",
-              color: "var(--muted)",
-              fontWeight: 500,
-              marginBottom: 20,
-              minHeight: "1.8rem",
-            }}
-          >
-            {displayed}
-            <span className="cursor" />
-          </div>
-
-          <p
-            style={{
-              color: "var(--muted)",
-              fontSize: "1.05rem",
-              lineHeight: 1.75,
-              marginBottom: 36,
-              maxWidth: 520,
-            }}
-          >
-            Étudiant en BUT Réseaux &amp; Télécommunications à l&apos;IUT de Béziers.
-            Je construis des applications web complètes (React, Next.js, Python) et
-            des architectures réseau, du prototype au déploiement.
+          {/* Sous-titre percutant */}
+          <p className="text-lg sm:text-xl font-medium text-[var(--fg)] mb-3">
+            Étudiant BUT Réseaux &amp; Télécommunications (parcours Cloud) · IUT de Béziers
           </p>
 
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 40 }}>
-            <a href="#projects" className="btn-primary">
-              Voir mes projets
+          {/* Description & Positionnement IA */}
+          <p className="text-base sm:text-lg text-[var(--muted)] leading-relaxed mb-8 max-w-2xl">
+            Je conçois et déploie des infrastructures réseau d&apos;entreprise (Cisco, MikroTik, BGP/OSPF, FTTH)
+            et des applications full-stack robustes. Bâtisseur augmenté par l&apos;IA, j&apos;orchestre des agents
+            et des outils de pointe pour livrer du code testé, fiable et en production à très haute vélocité.
+          </p>
+
+          {/* Actions CTA */}
+          <div className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto">
+            <a
+              href="#projects"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded bg-[var(--primary)] text-[var(--primary-fg)] font-medium text-sm transition-transform hover:-translate-y-0.5 shadow-sm hover:shadow"
+            >
+              Découvrir mes projets
               <ArrowDown size={16} />
             </a>
             <a
               href="/CV_Rodrigue_Emmanuel.pdf"
-              className="btn-secondary"
               download
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded border border-[var(--card-border)] bg-[var(--card)] text-[var(--fg)] font-medium text-sm transition hover:border-[var(--primary)] hover:text-[var(--primary)] shadow-sm"
             >
               <Download size={16} />
-              Télécharger le CV
+              Télécharger mon CV (PDF)
             </a>
           </div>
 
-          {/* Social links */}
-          <div style={{ display: "flex", gap: 16 }}>
-            {[
-              {
-                icon: <GithubIcon size={20} />,
-                href: "https://github.com/manuelrt1203",
-                label: "GitHub",
-              },
-              {
-                icon: <LinkedinIcon size={20} />,
-                href: "https://www.linkedin.com/in/rodrigue-emmanuel-tombe/",
-                label: "LinkedIn",
-              },
-              {
-                icon: <InstagramIcon size={20} />,
-                href: "https://www.instagram.com/mika177wise/",
-                label: "Instagram",
-              },
-            ].map((s) => (
+          {/* Réseaux & Localisation */}
+          <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-[var(--card-border)] w-full text-xs text-[var(--muted)] font-mono">
+            <div className="flex items-center gap-2">
+              <MapPin size={14} className="text-[var(--primary)]" />
+              <span>Béziers / Occitanie (mobilité stage)</span>
+            </div>
+            <div className="flex items-center gap-4">
               <a
-                key={s.label}
-                href={s.href}
+                href="https://github.com/manuelrt1203"
                 target="_blank"
                 rel="noopener noreferrer"
-                title={s.label}
-                aria-label={s.label}
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 4,
-                  border: "1px solid var(--card-border)",
-                  background: "var(--card)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "var(--muted)",
-                  transition: "all 0.2s",
-                  textDecoration: "none",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "var(--primary)";
-                  e.currentTarget.style.color = "var(--primary)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--card-border)";
-                  e.currentTarget.style.color = "var(--muted)";
-                }}
+                className="flex items-center gap-1.5 hover:text-[var(--primary)] transition"
+                aria-label="Profil GitHub de Rodrigue Emmanuel"
               >
-                {s.icon}
+                <GithubIcon size={14} />
+                <span>GitHub</span>
               </a>
-            ))}
+              <a
+                href="https://www.linkedin.com/in/rodrigue-emmanuel-tombe/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-[var(--primary)] transition"
+                aria-label="Profil LinkedIn de Rodrigue Emmanuel"
+              >
+                <LinkedinIcon size={14} />
+                <span>LinkedIn</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Monogram card */}
-        <div
-          style={{
-            flex: "0 0 auto",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 20,
-          }}
-        >
-          <div
-            className="card"
-            style={{
-              position: "relative",
-              width: 260,
-              height: 260,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 6,
-              borderColor: "var(--primary)",
-              borderWidth: 2,
-            }}
-          >
-            {/* corner brackets */}
-            {[
-              { top: -1, left: -1, borderWidth: "3px 0 0 3px" },
-              { top: -1, right: -1, borderWidth: "3px 3px 0 0" },
-              { bottom: -1, left: -1, borderWidth: "0 0 3px 3px" },
-              { bottom: -1, right: -1, borderWidth: "0 3px 3px 0" },
-            ].map((pos, i) => (
-              <span
-                key={i}
-                style={{
-                  position: "absolute",
-                  width: 20,
-                  height: 20,
-                  borderColor: "var(--primary)",
-                  borderStyle: "solid",
-                  ...pos,
-                }}
-              />
-            ))}
-            <span
-              style={{
-                fontFamily: "var(--font-space-grotesk)",
-                fontSize: "4.5rem",
-                fontWeight: 700,
-                color: "var(--fg)",
-              }}
-            >
-              RE<span style={{ color: "var(--primary)" }}>.</span>
-            </span>
-          </div>
+        {/* Colonne Carte Technique / Console */}
+        <div className="lg:col-span-4 w-full">
+          <div className="rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-6 shadow-sm relative overflow-hidden">
+            <div className="flex items-center justify-between pb-4 mb-5 border-b border-[var(--card-border)]">
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-[var(--fg)]">
+                <Terminal size={15} className="text-[var(--primary)]" />
+                <span>SPEC / CANDIDAT</span>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 text-[var(--primary)] font-medium">
+                PROFIL VÉRIFIÉ
+              </span>
+            </div>
 
-          {/* Stats */}
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-            }}
-          >
-            {[
-              { label: "Projets web", value: "4" },
-              { label: "SAÉ", value: "9" },
-              { label: "Articles", value: "11" },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="card"
-                style={{
-                  padding: "12px 16px",
-                  textAlign: "center",
-                  minWidth: 72,
-                }}
-              >
-                <div
-                  className="mono"
-                  style={{
-                    fontSize: "1.3rem",
-                    fontWeight: 700,
-                    color: "var(--primary)",
-                  }}
-                >
-                  {s.value}
-                </div>
-                <div
-                  style={{ fontSize: "0.72rem", color: "var(--muted)", fontWeight: 500 }}
-                >
-                  {s.label}
+            <div className="space-y-4 font-mono text-xs">
+              <div>
+                <p className="text-[var(--muted-2)] uppercase text-[10px] tracking-wider mb-1">Formation &amp; Statut</p>
+                <p className="text-[var(--fg)] font-medium">BUT2 R&amp;T (Cloud) · IUT de Béziers</p>
+                <p className="text-[var(--muted)]">Univ. de Montpellier (2025-2028)</p>
+              </div>
+
+              <div>
+                <p className="text-[var(--muted-2)] uppercase text-[10px] tracking-wider mb-1">Double Compétence</p>
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
+                  <span className="px-2 py-0.5 rounded bg-[var(--bg)] border border-[var(--card-border)] text-[var(--fg)]">
+                    Réseaux Cisco &amp; MikroTik
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-[var(--bg)] border border-[var(--card-border)] text-[var(--fg)]">
+                    FastAPI · Next.js · Electron
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-[var(--bg)] border border-[var(--card-border)] text-[var(--fg)]">
+                    Docker &amp; Linux
+                  </span>
                 </div>
               </div>
-            ))}
+
+              <div>
+                <p className="text-[var(--muted-2)] uppercase text-[10px] tracking-wider mb-1">Méthode de Développement</p>
+                <div className="flex items-start gap-2 text-[var(--muted)] leading-relaxed mt-1">
+                  <Sparkles size={13} className="text-[var(--primary)] mt-0.5 flex-shrink-0" />
+                  <span>Ingénierie assistée par IA &amp; validation par tests automatisés</span>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-[var(--card-border)] flex items-center justify-between text-[11px] text-[var(--muted)]">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck size={14} className="text-emerald-500" />
+                  10 SAÉ académiques
+                </span>
+                <span>6 projets déployés</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <a
-        href="#about"
-        aria-label="Découvrir la suite"
-        style={{
-          position: "absolute",
-          bottom: 32,
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 6,
-          color: "var(--muted)",
-          textDecoration: "none",
-          fontSize: "0.8rem",
-        }}
-      >
-        <span className="mono">scroll</span>
-        <ArrowDown size={16} />
-      </a>
     </section>
   );
 }

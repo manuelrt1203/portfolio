@@ -1,201 +1,151 @@
 "use client";
-import { ExternalLink, Lock, TrendingUp, BookOpen, LayoutGrid, GraduationCap } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ExternalLink, Lock, CheckCircle2, Terminal } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
+import { projects, type Project } from "@/data/projects";
 
-const projects = [
-  {
-    title: "ScorIQ",
-    desc: "Pronostics football pilotés par IA : probabilités 1X2/BTTS/over-under (Dixon-Coles + LightGBM), détection de value bets, historique de précision public. Backend FastAPI/PostgreSQL sur Render, frontend React/Vite sur Vercel.",
-    tags: ["React", "FastAPI", "PostgreSQL", "Machine Learning"],
-    icon: <TrendingUp size={24} />,
-    github: "https://github.com/manuelrt1203/scoriq-frontend",
-    demo: "https://pronostics-frontend.vercel.app",
-    status: null,
-  },
-  {
-    title: "Le blog de Mika",
-    desc: "Blog éditorial avec newsletter intégrée : articles au format magazine, back-office admin pour la rédaction et l'envoi de campagnes. Next.js 16, MDX, Turso, Resend.",
-    tags: ["Next.js", "TypeScript", "MDX", "Resend"],
-    icon: <BookOpen size={24} />,
-    github: null,
-    demo: "https://le-blog-de-mika.com",
-    status: "Dépôt privé",
-  },
-  {
-    title: "NetLab",
-    desc: "16 outils pédagogiques interactifs (réseaux, systèmes, algorithmique, télécoms, sécurité, maths) — 100% client, sans inscription.",
-    tags: ["Next.js", "TypeScript", "Canvas API"],
-    icon: <LayoutGrid size={24} />,
-    github: "https://github.com/manuelrt1203/netlab",
-    demo: "https://netlab-xi.vercel.app",
-    status: null,
-  },
-  {
-    title: "ENT Scolaire",
-    desc: "Logiciel de gestion scolaire (notes, messagerie) pour direction, professeurs, élèves et parents. Monorepo desktop (Electron) + web + mobile (Expo) partageant un client Supabase commun.",
-    tags: ["Electron", "React Native", "Supabase", "TypeScript"],
-    icon: <GraduationCap size={24} />,
-    github: null,
-    demo: null,
-    status: "En développement — dépôt privé",
-  },
-];
-
-function ProjectLinks({ github, demo, status }: { github: string | null; demo: string | null; status: string | null }) {
-  if (!github && !demo) {
-    return (
-      <div
-        className="mono"
-        style={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 6,
-          fontSize: "0.8rem",
-          color: "var(--muted-2)",
-        }}
-      >
-        <Lock size={13} /> {status}
-      </div>
-    );
-  }
-  return (
-    <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
-      {github && (
-        <a
-          href={github}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            padding: "8px 16px",
-            borderRadius: 3,
-            border: "1px solid var(--card-border)",
-            background: "transparent",
-            color: "var(--muted)",
-            textDecoration: "none",
-            fontSize: "0.85rem",
-            fontWeight: 500,
-            transition: "all 0.2s",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = "var(--primary)";
-            e.currentTarget.style.color = "var(--primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "var(--card-border)";
-            e.currentTarget.style.color = "var(--muted)";
-          }}
-        >
-          <GithubIcon size={15} /> Code
-        </a>
-      )}
-      {demo && (
-        <a
-          href={demo}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            padding: "8px 16px",
-            borderRadius: 3,
-            background: "color-mix(in srgb, var(--primary) 10%, transparent)",
-            border: "1px solid var(--primary)",
-            color: "var(--primary)",
-            textDecoration: "none",
-            fontSize: "0.85rem",
-            fontWeight: 500,
-            transition: "all 0.2s",
-          }}
-        >
-          <ExternalLink size={15} /> Voir le projet
-        </a>
-      )}
-      {status && (
-        <span className="mono" style={{ fontSize: "0.75rem", color: "var(--muted-2)" }}>
-          {status}
-        </span>
-      )}
-    </div>
-  );
-}
+type FilterTab = "all" | "network" | "ai" | "fullstack";
 
 export default function Projects() {
+  const [activeTab, setActiveTab] = useState<FilterTab>("all");
+
+  const filteredProjects = useMemo(() => {
+    if (activeTab === "all") return projects;
+    return projects.filter((p) => p.category === activeTab);
+  }, [activeTab]);
+
   return (
-    <section
-      id="projects"
-      style={{ padding: "100px 24px" }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: 64 }}>
-          <p className="eyebrow" style={{ justifyContent: "center" }}>
-            Ce que j&apos;ai réalisé
-          </p>
-          <h2
-            style={{
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 700,
-              marginBottom: 16,
-            }}
-          >
-            Projets
-          </h2>
-          <p style={{ color: "var(--muted)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
-            Projets personnels développés en autonomie, en parallèle des études.
-            Les projets académiques (SAÉ) sont détaillés{" "}
-            <a href="#sae" style={{ color: "var(--primary)", fontWeight: 600 }}>
-              juste en dessous
-            </a>
-            .
-          </p>
+    <section id="projects" className="py-24 px-6 border-b border-[var(--card-border)] bg-[var(--bg)]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <div className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[var(--primary)] font-semibold mb-3">
+              <span className="w-2 h-2 bg-[var(--primary)]" />
+              // 01 — Projets Personnels
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[var(--fg)]">
+              Applications &amp; Systèmes Réalisés
+            </h2>
+            <p className="text-sm sm:text-base text-[var(--muted)] max-w-xl mt-2">
+              Projets complets conçus, développés et déployés en production. Conçus avec l&apos;assistance d&apos;outils
+              et d&apos;agents d&apos;ingénierie IA, avec tests et vérification rigoureuse.
+            </p>
+          </div>
+
+          {/* Filtres de catégorie */}
+          <div className="flex flex-wrap gap-2 p-1 rounded-md border border-[var(--card-border)] bg-[var(--card)] self-start md:self-auto">
+            {(
+              [
+                { id: "all", label: "Tous" },
+                { id: "network", label: "Réseau & Desktop" },
+                { id: "ai", label: "IA & Data" },
+                { id: "fullstack", label: "Full-Stack" },
+              ] as const
+            ).map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-1.5 text-xs font-mono font-medium rounded transition ${
+                  activeTab === tab.id
+                    ? "bg-[var(--primary)] text-[var(--primary-fg)] shadow-sm"
+                    : "text-[var(--muted)] hover:text-[var(--fg)] hover:bg-[var(--bg)]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Projects grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-            gap: 24,
-          }}
-        >
-          {projects.map((p) => (
-            <div
-              key={p.title}
-              className="card card-hover"
-              style={{ padding: 32, position: "relative" }}
+        {/* Grille des Projets */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => (
+            <article
+              key={project.id}
+              className="flex flex-col justify-between rounded-lg border border-[var(--card-border)] bg-[var(--card)] p-6 transition-all hover:border-[var(--primary)] hover:shadow-md"
             >
-              <div className="icon-box" style={{ width: 52, height: 52, marginBottom: 20 }}>
-                {p.icon}
-              </div>
-
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: 12 }}>
-                {p.title}
-              </h3>
-              <p
-                style={{
-                  color: "var(--muted)",
-                  fontSize: "0.9rem",
-                  lineHeight: 1.65,
-                  marginBottom: 20,
-                }}
-              >
-                {p.desc}
-              </p>
-
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 24 }}>
-                {p.tags.map((t) => (
-                  <span key={t} className="tag">
-                    {t}
+              <div>
+                {/* Header Carte : Badge & Statut */}
+                <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-[var(--card-border)]">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--bg)] border border-[var(--card-border)] text-[var(--primary)] font-semibold">
+                    {project.badge}
                   </span>
-                ))}
+                  {project.statusLabel && (
+                    <span className="text-[11px] font-mono text-[var(--muted)] flex items-center gap-1">
+                      <CheckCircle2 size={12} className="text-emerald-500" />
+                      {project.statusLabel}
+                    </span>
+                  )}
+                </div>
+
+                {/* Titre & Accroche */}
+                <h3 className="text-xl font-bold text-[var(--fg)] mb-1">{project.title}</h3>
+                <p className="text-xs font-mono text-[var(--muted-2)] mb-3">{project.tagline}</p>
+
+                {/* Description */}
+                <p className="text-xs text-[var(--muted)] leading-relaxed mb-4">{project.description}</p>
+
+                {/* Points forts */}
+                <ul className="space-y-1.5 mb-6 text-xs text-[var(--fg)]">
+                  {project.highlights.map((highlight, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-[var(--primary)] font-mono font-bold">›</span>
+                      <span className="leading-tight">{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <ProjectLinks github={p.github} demo={p.demo} status={p.status} />
-            </div>
+              <div>
+                {/* Tags Technologiques */}
+                <div className="flex flex-wrap gap-1.5 mb-6 pt-4 border-t border-[var(--card-border)]">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2 py-0.5 text-[10px] font-mono rounded bg-[var(--bg)] text-[var(--muted)] border border-[var(--card-border)]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Actions & Liens */}
+                <div className="flex items-center gap-3 pt-2">
+                  {project.githubUrl ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-3 py-1.5 rounded border border-[var(--card-border)] bg-[var(--bg)] text-[var(--fg)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition"
+                      aria-label={`Code source de ${project.title}`}
+                    >
+                      <GithubIcon size={13} />
+                      <span>Code</span>
+                    </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-mono text-[var(--muted-2)]">
+                      <Lock size={12} />
+                      <span>Dépôt privé</span>
+                    </span>
+                  )}
+
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-3 py-1.5 rounded bg-[var(--primary)] text-[var(--primary-fg)] hover:opacity-90 transition shadow-sm ml-auto"
+                      aria-label={`Démo en ligne de ${project.title}`}
+                    >
+                      <span>Démo en ligne</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>
