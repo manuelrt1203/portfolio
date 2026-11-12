@@ -1,29 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #fafafa;
-  --fg: #09090b;
+  --bg: #f8fafc;
+  --fg: #0f172a;
   --primary: #2563eb;
   --primary-fg: #ffffff;
+  --cyan: #0891b2;
   --card: #ffffff;
-  --card-border: #e4e4e7;
-  --muted: #52525b;
-  --muted-2: #a1a1aa;
+  --card-border: #e2e8f0;
+  --card-hover: #f1f5f9;
+  --muted: #475569;
+  --muted-2: #94a3b8;
   --danger: #dc2626;
-  --grid-line: rgba(9, 9, 11, 0.05);
+  --success: #059669;
+  --grid-line: rgba(15, 23, 42, 0.04);
+  --halo-glow: rgba(37, 99, 235, 0.06);
 }
 
 [data-theme="dark"] {
-  --bg: #0a0a0b;
-  --fg: #f4f4f5;
+  --bg: #0b1120;
+  --fg: #f1f5f9;
   --primary: #3b82f6;
   --primary-fg: #ffffff;
-  --card: #131316;
-  --card-border: #27272a;
-  --muted: #a1a1aa;
-  --muted-2: #71717a;
+  --cyan: #22d3ee;
+  --card: #111c30;
+  --card-border: #1e2e4a;
+  --card-hover: #15243e;
+  --muted: #94a3b8;
+  --muted-2: #64748b;
   --danger: #f87171;
-  --grid-line: rgba(255, 255, 255, 0.06);
+  --success: #10b981;
+  --grid-line: rgba(59, 130, 246, 0.06);
+  --halo-glow: rgba(34, 211, 238, 0.1);
 }
 
 @theme inline {
@@ -38,10 +46,14 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
   color: var(--fg);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
   overflow-x: hidden;
 }
 
@@ -54,57 +66,59 @@ h1, h2, h3, h4 {
   font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
-::selection { background: var(--primary); color: white; }
+::selection { background: var(--cyan); color: #0b1120; }
 
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
 a { color: inherit; }
 
-/* Eyebrow label — the "// 01 — SECTION" technical marker */
+/* Eyebrow label — technical marker */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8rem;
-  color: var(--primary);
-  margin-bottom: 14px;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  color: var(--cyan);
+  margin-bottom: 12px;
 }
 .eyebrow::before {
   content: "";
-  width: 8px;
-  height: 8px;
-  background: var(--primary);
+  width: 7px;
+  height: 7px;
+  background: var(--cyan);
+  border-radius: 1px;
   flex-shrink: 0;
 }
 
 .card {
   background: var(--card);
   border: 1px solid var(--card-border);
-  border-radius: 4px;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 16px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card-hover:hover {
-  border-color: var(--primary);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px -8px rgba(37, 99, 235, 0.25);
+  border-color: rgba(34, 211, 238, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px -12px rgba(34, 211, 238, 0.15);
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
   padding: 4px 10px;
-  border-radius: 3px;
+  border-radius: 6px;
   font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
   font-size: 0.74rem;
   font-weight: 500;
-  background: transparent;
+  background: var(--bg);
   color: var(--muted);
   border: 1px solid var(--card-border);
 }
@@ -117,24 +131,33 @@ a { color: inherit; }
   display: inline-block;
   width: 3px;
   height: 1em;
-  background: var(--primary);
+  background: var(--cyan);
   margin-left: 3px;
   vertical-align: middle;
   animation: blink 1s step-end infinite;
 }
 
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.fade-in-up { animation: fadeInUp 0.5s ease forwards; }
+.fade-in-up { animation: fadeInUp 0.4s ease forwards; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
 
 input:focus, textarea:focus, a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--cyan);
   outline-offset: 2px;
 }
 
@@ -143,7 +166,7 @@ input:focus, textarea:focus, a:focus-visible, button:focus-visible {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  border-radius: 3px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 0.92rem;
   cursor: pointer;
@@ -154,7 +177,7 @@ input:focus, textarea:focus, a:focus-visible, button:focus-visible {
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 8px 24px -6px rgba(59, 130, 246, 0.4);
 }
 
 .btn-secondary {
@@ -162,18 +185,18 @@ input:focus, textarea:focus, a:focus-visible, button:focus-visible {
   align-items: center;
   gap: 8px;
   padding: 12px 24px;
-  border-radius: 3px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 0.92rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: transparent;
+  background: var(--card);
   color: var(--fg);
   border: 1px solid var(--card-border);
 }
 .btn-secondary:hover {
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: var(--cyan);
+  color: var(--cyan);
   transform: translateY(-2px);
 }
 
@@ -182,7 +205,7 @@ input:focus, textarea:focus, a:focus-visible, button:focus-visible {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--card-border);
-  border-radius: 4px;
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  border-radius: 10px;
+  color: var(--cyan);
+  background: color-mix(in srgb, var(--cyan) 10%, transparent);
 }

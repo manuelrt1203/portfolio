@@ -4,6 +4,7 @@ export type Project = {
   category: "network" | "fullstack" | "ai";
   tagline: string;
   description: string;
+  problemStatement?: string;
   highlights: string[];
   tags: string[];
   githubUrl: string | null;
@@ -13,6 +14,8 @@ export type Project = {
   downloadLabel?: string;
   statusLabel?: string;
   badge?: string;
+  featured?: boolean;
+  previewType?: "topology" | "packet" | "calibration";
 };
 
 export const projects: Project[] = [
@@ -20,58 +23,27 @@ export const projects: Project[] = [
     id: "netcanvas",
     title: "NetCanvas",
     category: "network",
-    tagline: "Concepteur et simulateur de topologies réseau",
+    tagline: "Concepteur et simulateur de topologies réseau vivantes",
     description:
-      "Application desktop et web conçue pour modéliser des topologies réseau interactives, générer et exporter automatiquement des configurations pour équipements Cisco IOS et MikroTik RouterOS, avec synchronisation cloud via Supabase.",
+      "Application desktop et web conçue pour modéliser des architectures réseau interactives, simuler le routage (OSPF, BGP, RIP) et exporter automatiquement des configurations prêtes à l'emploi pour équipements Cisco IOS et MikroTik RouterOS.",
+    problemStatement:
+      "Combler le fossé entre les outils de dessin statiques et les simulateurs lourds en offrant un retour visuel immédiat sur les erreurs d'adressage et de routage.",
     highlights: [
-      "Export de configurations Cisco IOS & MikroTik RouterOS prêtes à l'emploi",
-      "Éditeur de topologie interactif avec détection des conflits d'adressage",
-      "Sauvegarde locale chiffrée et synchronisation distante via Supabase",
+      "Export de configurations Cisco IOS & MikroTik RouterOS conformes",
+      "Détection temps réel des conflits IP, masques et erreurs de câblage",
+      "Simulateur de cheminement de paquets (Ping / ICMP) et diagnostics",
+      "Sauvegarde locale chiffrée (.netcanvas) et synchronisation cloud Supabase",
     ],
-    tags: ["Electron", "React", "TypeScript", "Tailwind CSS", "Supabase", "Cisco", "MikroTik"],
+    tags: ["Electron", "React", "TypeScript", "Tailwind CSS", "Supabase", "Cisco IOS", "MikroTik"],
     githubUrl: "https://github.com/manuelrt1203/netcanvas",
     demoUrl: "https://netcanvas.vercel.app",
-    demoLabel: "App Web",
+    demoLabel: "Tester en ligne",
     downloadUrl: "https://github.com/manuelrt1203/netcanvas-releases/releases",
-    downloadLabel: "Releases",
+    downloadLabel: "Releases Desktop",
     statusLabel: "Desktop & Web",
-    badge: "Réseau & Desktop",
-  },
-  {
-    id: "scoriq",
-    title: "ScorIQ",
-    category: "ai",
-    tagline: "Moteur prédictif football & calibration de probabilités",
-    description:
-      "Plateforme de calcul de probabilités sportives s'appuyant sur les modèles Dixon-Coles et LightGBM. Intègre une mesure de calibration publique (Brier score, log-loss) comparée aux cotes des bookmakers.",
-    highlights: [
-      "Pipeline quotidien automatisé avec alerte sur issue GitHub en cas d'anomalie",
-      "Modélisation statistique avancée (Dixon-Coles + LightGBM)",
-      "Courbes de fiabilité et audit de calibration en temps réel",
-    ],
-    tags: ["Python", "FastAPI", "React", "Vite", "LightGBM", "PostgreSQL", "Render"],
-    githubUrl: "https://github.com/manuelrt1203/scoriq-backend",
-    demoUrl: "https://pronostics-frontend.vercel.app",
-    statusLabel: "En production",
-    badge: "IA & Data",
-  },
-  {
-    id: "agents-ia",
-    title: "Atelier IA",
-    category: "ai",
-    tagline: "Orchestrateur multi-agents autonome & local",
-    description:
-      "Architecture locale de 35 agents répartis en 9 départements spécialisés (Direction, Dev, Réseau, Sécurité, UI/UX). Conçu en Python standard avec exécution isolée dans des copies Git de travail, piloté via CLI ou n8n sous Docker.",
-    highlights: [
-      "101 tests unitaires automatisés validant les contrats et la sécurité",
-      "Pipeline quatuor : Coordinateur → Développeur → Relecteur & Testeur",
-      "Zéro dépendance externe dans le cœur de la bibliothèque standard",
-    ],
-    tags: ["Python 3.11", "Docker", "n8n", "Architecture Multi-Agents", "Git Worktrees"],
-    githubUrl: "https://github.com/manuelrt1203/agents-ia",
-    demoUrl: null,
-    statusLabel: "101 tests passants",
-    badge: "Orchestration IA",
+    badge: "Projet Phare · Réseau",
+    featured: true,
+    previewType: "topology",
   },
   {
     id: "netlab",
@@ -79,17 +51,64 @@ export const projects: Project[] = [
     category: "network",
     tagline: "Boîte à outils interactive pour étudiants en Réseaux & Télécoms",
     description:
-      "Suite complète d'apprentissage réseau exécutée 100% côté client : calculatrice CIDR/VLSM IPv4/IPv6, décodeur de trames Ethernet/IP/TCP, vérification DoH (DNS over HTTPS), réputation IP et RDAP.",
+      "Suite d'outils réseau exécutée intégralement côté client dans le navigateur : calculatrice CIDR/VLSM IPv4/IPv6, décodeur graphique de trames Ethernet/IP/TCP, vérification DoH (DNS over HTTPS) et interrogations RDAP.",
+    problemStatement:
+      "Fournir aux étudiants en réseaux un environnement d'apprentissage autonome sans serveur tiers, avec décodage instantané de trames réelles.",
     highlights: [
-      "Calculateurs VLSM et tables de sous-réseaux interactives",
-      "Analyseur de trames et de paquets réseau pas à pas",
-      "Interrogation en direct sans intermédiaire (DoH Google & Cloudflare, RDAP)",
+      "Décodeur interactif de trames hexadécimales pas à pas (Ethernet / IP / TCP)",
+      "Calculateur VLSM avec découpage automatique et tables de sous-réseaux",
+      "Requêtes DNS over HTTPS en direct (Google & Cloudflare) et réputation IP",
     ],
-    tags: ["Next.js", "TypeScript", "Canvas API", "Réseaux IPv4/IPv6", "DNS DoH"],
+    tags: ["Next.js", "TypeScript", "Canvas API", "IPv4/IPv6", "DNS DoH", "RDAP"],
     githubUrl: "https://github.com/manuelrt1203/netlab",
     demoUrl: "https://netlab-xi.vercel.app",
-    statusLabel: "En production",
-    badge: "Outils Réseau",
+    demoLabel: "Lancer l'outil",
+    statusLabel: "En ligne",
+    badge: "Projet Phare · Outils",
+    featured: true,
+    previewType: "packet",
+  },
+  {
+    id: "scoriq",
+    title: "ScorIQ",
+    category: "ai",
+    tagline: "Moteur prédictif football & calibration statistique de probabilités",
+    description:
+      "Plateforme de calcul de probabilités sportives combinant le modèle statistique Dixon-Coles (loi de Poisson bivariée) et le gradient boosting LightGBM, avec audit public de calibration (Brier score, log-loss) opposé aux bookmakers.",
+    problemStatement:
+      "Démontrer qu'une approche rigoureuse et transparente de calibration probabiliste surpasse les modèles boîte-noire arbitraires.",
+    highlights: [
+      "Pipeline quotidien automatisé de scraping, recalcul et alertes GitHub Issues",
+      "Audit de calibration publique et courbes de fiabilité en temps réel",
+      "Architecture distribuée (FastAPI sur Render, DB PostgreSQL, front React)",
+    ],
+    tags: ["Python", "FastAPI", "React", "LightGBM", "Dixon-Coles", "PostgreSQL", "Render"],
+    githubUrl: "https://github.com/manuelrt1203/scoriq-backend",
+    demoUrl: "https://pronostics-frontend.vercel.app",
+    demoLabel: "Voir l'audit",
+    statusLabel: "Production",
+    badge: "Projet Phare · IA & Data",
+    featured: true,
+    previewType: "calibration",
+  },
+  {
+    id: "agents-ia",
+    title: "Atelier IA",
+    category: "ai",
+    tagline: "Orchestrateur multi-agents local & modulaire",
+    description:
+      "Architecture locale de 35 agents répartis en 9 départements spécialisés (Direction, Dev, Réseau, Sécurité, UI/UX). Conçu en Python standard avec exécution isolée dans des copies Git de travail (worktrees).",
+    highlights: [
+      "101 tests unitaires automatisés validant les contrats de sécurité",
+      "Pipeline quatuor : Coordinateur → Développeur → Relecteur & Testeur",
+      "Zéro dépendance externe dans le cœur de la bibliothèque standard",
+    ],
+    tags: ["Python 3.11", "Docker", "n8n", "Multi-Agents", "Git Worktrees"],
+    githubUrl: "https://github.com/manuelrt1203/agents-ia",
+    demoUrl: null,
+    statusLabel: "101 tests passants",
+    badge: "Orchestration IA",
+    featured: false,
   },
   {
     id: "ent-scolaire",
@@ -99,15 +118,16 @@ export const projects: Project[] = [
     description:
       "Environnement Numérique de Travail complet connectant direction, professeurs, élèves et parents. Structuré en monorepo partageant un noyau TypeScript commun entre applications desktop, web et mobile.",
     highlights: [
-      "Architecture monorepo avec packages partagés entre web, desktop et mobile",
-      "Sécurité par ligne (RLS) PostgreSQL stricte selon les rôles utilisateurs",
-      "Intégration d'APIs publiques (Adresses BAN, Annuaire Éducation, Calendrier scolaire)",
+      "Monorepo TypeScript partagé entre Web, Electron et React Native",
+      "Sécurité stricte par ligne (RLS) PostgreSQL selon les rôles",
+      "Intégration d'APIs publiques (Adresses BAN, Annuaire Éducation)",
     ],
-    tags: ["TypeScript", "Electron", "Expo", "React Native", "Supabase", "PostgreSQL"],
+    tags: ["TypeScript", "Electron", "React Native", "Expo", "Supabase", "PostgreSQL"],
     githubUrl: null,
     demoUrl: null,
     statusLabel: "Dépôt privé",
-    badge: "Architecture Full-Stack",
+    badge: "Monorepo Full-Stack",
+    featured: false,
   },
   {
     id: "le-blog-de-mika",
@@ -115,10 +135,10 @@ export const projects: Project[] = [
     category: "fullstack",
     tagline: "Plateforme éditoriale & publication technique",
     description:
-      "Espace éditorial et blog personnel au format magazine avec newsletter intégrée. Conçu pour partager des retours d'expérience techniques, notes de veille et réflexions sur le génie logiciel.",
+      "Espace éditorial et blog personnel au format magazine avec newsletter intégrée. Conçu pour partager des retours d'expérience techniques, notes de veille réseau et réflexions sur le génie logiciel.",
     highlights: [
       "Rendu MDX optimisé avec coloration syntaxique et typographie soignée",
-      "Back-office de gestion des publications et de diffusion d'articles",
+      "Back-office de gestion des publications et de diffusion",
       "Base de données serverless Turso (libSQL) et routage Edge",
     ],
     tags: ["Next.js", "TypeScript", "MDX", "Turso", "Resend", "Tailwind CSS"],
@@ -126,5 +146,6 @@ export const projects: Project[] = [
     demoUrl: "https://le-blog-de-mika.com",
     statusLabel: "En ligne",
     badge: "Web & Contenu",
+    featured: false,
   },
 ];
