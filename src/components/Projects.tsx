@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
-import { ExternalLink, Lock, CheckCircle2, Terminal } from "lucide-react";
+import { ExternalLink, Lock, CheckCircle2, Download } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import { projects, type Project } from "@/data/projects";
 
@@ -112,7 +112,7 @@ export default function Projects() {
                 </div>
 
                 {/* Actions & Liens */}
-                <div className="flex items-center gap-3 pt-2">
+                <div className="flex flex-wrap items-center gap-2 pt-2">
                   {project.githubUrl ? (
                     <a
                       href={project.githubUrl}
@@ -124,11 +124,25 @@ export default function Projects() {
                       <GithubIcon size={13} />
                       <span>Code</span>
                     </a>
-                  ) : (
+                  ) : !project.downloadUrl ? (
                     <span className="inline-flex items-center gap-1 text-[11px] font-mono text-[var(--muted-2)]">
                       <Lock size={12} />
                       <span>Dépôt privé</span>
                     </span>
+                  ) : null}
+
+                  {project.downloadUrl && (
+                    <a
+                      href={project.downloadUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-3 py-1.5 rounded border border-[var(--card-border)] bg-[var(--bg)] text-[var(--fg)] hover:border-[var(--primary)] hover:text-[var(--primary)] transition"
+                      aria-label={`${project.downloadLabel || "Releases"} de ${project.title}`}
+                      title="Téléchargements des releases sur GitHub"
+                    >
+                      <Download size={13} />
+                      <span>{project.downloadLabel || "Releases"}</span>
+                    </a>
                   )}
 
                   {project.demoUrl && (
@@ -137,9 +151,9 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-mono font-medium px-3 py-1.5 rounded bg-[var(--primary)] text-[var(--primary-fg)] hover:opacity-90 transition shadow-sm ml-auto"
-                      aria-label={`Démo en ligne de ${project.title}`}
+                      aria-label={`${project.demoLabel || "Démo en ligne"} de ${project.title}`}
                     >
-                      <span>Démo en ligne</span>
+                      <span>{project.demoLabel || "Démo en ligne"}</span>
                       <ExternalLink size={12} />
                     </a>
                   )}

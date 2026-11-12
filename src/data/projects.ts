@@ -8,6 +8,9 @@ export type Project = {
   tags: string[];
   githubUrl: string | null;
   demoUrl: string | null;
+  demoLabel?: string;
+  downloadUrl?: string | null;
+  downloadLabel?: string;
   statusLabel?: string;
   badge?: string;
 };
@@ -19,7 +22,7 @@ export const projects: Project[] = [
     category: "network",
     tagline: "Concepteur et simulateur de topologies réseau",
     description:
-      "Application desktop conçue pour modéliser des topologies réseau interactives, générer et exporter automatiquement des configurations pour équipements Cisco IOS et MikroTik RouterOS, avec synchronisation cloud via Supabase.",
+      "Application desktop et web conçue pour modéliser des topologies réseau interactives, générer et exporter automatiquement des configurations pour équipements Cisco IOS et MikroTik RouterOS, avec synchronisation cloud via Supabase.",
     highlights: [
       "Export de configurations Cisco IOS & MikroTik RouterOS prêtes à l'emploi",
       "Éditeur de topologie interactif avec détection des conflits d'adressage",
@@ -27,8 +30,11 @@ export const projects: Project[] = [
     ],
     tags: ["Electron", "React", "TypeScript", "Tailwind CSS", "Supabase", "Cisco", "MikroTik"],
     githubUrl: "https://github.com/manuelrt1203/netcanvas",
-    demoUrl: null,
-    statusLabel: "Application Desktop",
+    demoUrl: "https://netcanvas.vercel.app",
+    demoLabel: "App Web",
+    downloadUrl: "https://github.com/manuelrt1203/netcanvas-releases/releases",
+    downloadLabel: "Releases",
+    statusLabel: "Desktop & Web",
     badge: "Réseau & Desktop",
   },
   {
