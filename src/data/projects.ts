@@ -1,3 +1,12 @@
+/** Capture d'écran réelle d'un projet en production (fichier dans public/projects/). */
+export type Screenshot = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -15,7 +24,9 @@ export type Project = {
   statusLabel?: string;
   badge?: string;
   featured?: boolean;
-  previewType?: "topology" | "packet" | "calibration";
+  previewType?: "topology" | "packet";
+  /** Captures réelles : remplacent l'aperçu dessiné (previewType) quand elles existent. */
+  screenshots?: Screenshot[];
 };
 
 export const projects: Project[] = [
@@ -74,9 +85,9 @@ export const projects: Project[] = [
     category: "ai",
     tagline: "Moteur prédictif football & calibration statistique de probabilités",
     description:
-      "Plateforme de calcul de probabilités sportives combinant le modèle statistique Dixon-Coles (loi de Poisson bivariée) et le gradient boosting LightGBM, avec audit public de calibration (Brier score, log-loss) opposé aux bookmakers.",
+      "Plateforme de calcul de probabilités sportives combinant le modèle statistique Dixon-Coles (loi de Poisson bivariée) et le gradient boosting LightGBM, avec audit public de calibration (Brier score, log-loss) et comparaison aux cotes des bookmakers.",
     problemStatement:
-      "Démontrer qu'une approche rigoureuse et transparente de calibration probabiliste surpasse les modèles boîte-noire arbitraires.",
+      "Mesurer et publier honnêtement la qualité des probabilités d'un modèle de pronostics : calibration, comparaison aux cotes des bookmakers, et zones où il se trompe.",
     highlights: [
       "Pipeline quotidien automatisé de scraping, recalcul et alertes GitHub Issues",
       "Audit de calibration publique et courbes de fiabilité en temps réel",
@@ -89,7 +100,24 @@ export const projects: Project[] = [
     statusLabel: "Production",
     badge: "Projet Phare · IA & Data",
     featured: true,
-    previewType: "calibration",
+    screenshots: [
+      {
+        src: "/projects/scoriq-calibration.webp",
+        alt: "Capture du site ScorIQ, onglet Statistiques : courbe de calibration des probabilités annoncées, tableau annoncé contre observé, comparaison avec les cotes des bookmakers (Brier 0,560 contre 0,559) et mise en garde sur son interprétation.",
+        caption:
+          "Onglet Statistiques (capture du 14/11/2026) : sur 1 518 matchs évalués, la calibration est bonne jusqu'à environ 75 % annoncés, puis le modèle devient trop optimiste (82 % annoncés pour 71 % réalisés). La comparaison aux cotes précise elle-même qu'elle ne mesure pas le modèle seul.",
+        width: 1920,
+        height: 1080,
+      },
+      {
+        src: "/projects/scoriq-statistiques.webp",
+        alt: "Capture du site ScorIQ, onglet Statistiques : 2 286 prédictions enregistrées dont 1 518 évaluées, 54,9 % de pronostics 1X2 corrects, 54,2 % pour les deux équipes marquent, 56,8 % pour plus de 2,5 buts.",
+        caption:
+          "Indicateurs globaux (capture du 14/11/2026) : 2 286 prédictions enregistrées, 1 518 confrontées au résultat réel, 54,9 % de pronostics 1X2 corrects.",
+        width: 1920,
+        height: 1080,
+      },
+    ],
   },
   {
     id: "agents-ia",

@@ -1,30 +1,80 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
+
+/** Éléments atteignables au clavier à l'intérieur de la fenêtre. */
+const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export default function Modal({
   onClose,
   children,
+  maxWidth = 640,
+  label,
 }: {
   onClose: () => void;
   children: React.ReactNode;
+  /** Largeur maximale de la fenêtre en px (640 par défaut, comme avant). */
+  maxWidth?: number;
+  /** Nom accessible de la fenêtre pour les lecteurs d'écran. */
+  label?: string;
 }) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  // Le parent passe souvent une fonction fléchée neuve à chaque rendu : on garde la dernière version dans une
+  // référence, pour que l'effet ci-dessous ne se rejoue pas (il déplacerait le focus à chaque rendu).
+  const onCloseRef = useRef(onClose);
   useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow; // restauré tel quel : sûr même si deux fenêtres s'empilent un jour
+    dialog?.focus(); // le clavier et les lecteurs d'écran arrivent dans la fenêtre, pas derrière
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== "Tab" || !dialog) return;
+      // Le focus reste dans la fenêtre : Tab et Maj+Tab bouclent entre le premier et le dernier élément.
+      const items = [...dialog.querySelectorAll<HTMLElement>(FOCUSABLE)];
+      if (items.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      if (!dialog.contains(active)) {
+        // Focus perdu hors de la fenêtre (élément retiré, clic sur le fond) : on le ramène à l'intérieur.
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && (active === first || active === dialog)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus(); // rend le focus au bouton qui a ouvert la fenêtre
     };
-  }, [onClose]);
+  }, []);
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       role="dialog"
       aria-modal="true"
+      aria-label={label}
       onClick={onClose}
       style={{
         position: "fixed",
@@ -37,6 +87,7 @@ export default function Modal({
         justifyContent: "center",
         padding: "80px 20px 40px",
         overflowY: "auto",
+        outline: "none", // focus donné au conteneur par programme : pas de contour parasite (les boutons gardent le leur)
       }}
       className="fade-in-up"
     >
@@ -45,7 +96,7 @@ export default function Modal({
         className="card"
         style={{
           width: "100%",
-          maxWidth: 640,
+          maxWidth,
           padding: 36,
           position: "relative",
           background: "var(--bg)",

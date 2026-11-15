@@ -8,11 +8,11 @@ import {
   Wifi,
   Cpu,
   Layers,
-  Activity,
   Terminal,
   Share2,
 } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
+import ScreenshotGallery from "./ScreenshotGallery";
 import { projects, type Project } from "@/data/projects";
 
 export default function Projects() {
@@ -273,64 +273,8 @@ export default function Projects() {
                     </div>
                   )}
 
-                  {project.previewType === "calibration" && (
-                    <div className="rounded-xl border border-[var(--card-border)] bg-[#070b14] p-4 shadow-lg font-mono text-xs text-slate-300">
-                      {/* En-tête ScorIQ */}
-                      <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-800">
-                        <div className="flex items-center gap-2">
-                          <Activity size={14} className="text-emerald-400" />
-                          <span className="text-[10px] text-slate-400">ScorIQ — Dixon-Coles &amp; LightGBM</span>
-                        </div>
-                        <span className="text-[9px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold">
-                          Brier Score: 0.174
-                        </span>
-                      </div>
-
-                      {/* Prédictions & Calibration */}
-                      <div className="p-3 rounded-lg bg-[#0d1527] border border-slate-800 space-y-3">
-                        <div className="text-[11px] font-bold text-slate-200">
-                          Probabilités Calibrées vs Cotes Marché
-                        </div>
-
-                        {/* Barres de probabilité */}
-                        <div className="space-y-1.5 text-[10px]">
-                          <div>
-                            <div className="flex justify-between text-slate-400 mb-0.5">
-                              <span>Victoire Domicile (1)</span>
-                              <span className="text-emerald-400 font-bold">51.4% (Cote 1.95)</span>
-                            </div>
-                            <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                              <div className="h-full bg-emerald-400 rounded-full" style={{ width: "51.4%" }} />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="flex justify-between text-slate-400 mb-0.5">
-                              <span>Match Nul (N)</span>
-                              <span className="text-amber-400 font-bold">27.2% (Cote 3.65)</span>
-                            </div>
-                            <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                              <div className="h-full bg-amber-400 rounded-full" style={{ width: "27.2%" }} />
-                            </div>
-                          </div>
-
-                          <div>
-                            <div className="flex justify-between text-slate-400 mb-0.5">
-                              <span>Victoire Extérieur (2)</span>
-                              <span className="text-cyan-400 font-bold">21.4% (Cote 4.60)</span>
-                            </div>
-                            <div className="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden">
-                              <div className="h-full bg-cyan-400 rounded-full" style={{ width: "21.4%" }} />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-3 pt-2 border-t border-slate-800 text-[10px] text-slate-500 flex justify-between">
-                        <span>Pipeline Render + FastAPI</span>
-                        <span className="text-emerald-400">Recalcul Quotidien Auto</span>
-                      </div>
-                    </div>
+                  {project.screenshots && (
+                    <ScreenshotGallery project={project.title} shots={project.screenshots} />
                   )}
                 </div>
               </div>

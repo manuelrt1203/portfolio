@@ -8,10 +8,12 @@ import Education from "@/components/Education";
 import CV from "@/components/CV";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
 
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <Navbar />
       <main>
         <Hero />
